@@ -1,14 +1,12 @@
 import React from "react";
-import ThemeSwitcher from "components/ThemeSwitcher";
-import { Button } from "@mui/material";
+import { BrowserRouter as Router } from "react-router-dom";
+import AppRouter from "router/AppRouter.route";
 
 const App: React.FC = () => {
   return (
-    <div>
-      <h1>hello</h1>
-      <ThemeSwitcher />
-      <Button>test</Button>
-    </div>
+    <Router>  
+        <AppRouter />
+    </Router>
   );
 };
 
