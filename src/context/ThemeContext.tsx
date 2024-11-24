@@ -1,6 +1,7 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react';
-import {ThemeProvider } from '@mui/material/styles';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import { ThemeProvider } from '@mui/material/styles';
 import { darkTheme, lightTheme } from 'Theme'; 
+import { getTheme, setTheme } from 'utils/themeUtils';
 
 interface ThemeContextType {
   toggleTheme: () => void;
@@ -19,12 +20,21 @@ export const useTheme = (): ThemeContextType => {
 };
 
 export const ThemeProviderWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const savedTheme = getTheme();
+  const initialTheme = savedTheme === 'dark' ? true : false;
+
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(initialTheme);
+
   const toggleTheme = () => {
-    setIsDarkMode(prevMode => !prevMode);
+    setIsDarkMode(prevMode => {
+      const newMode = !prevMode;
+      setTheme(newMode ? 'dark' : 'light'); 
+      return newMode;
+    });
   };
 
   const theme = isDarkMode ? darkTheme : lightTheme;
+
   return (
     <ThemeContext.Provider value={{ toggleTheme, isDarkMode }}>
       <ThemeProvider theme={theme}>
