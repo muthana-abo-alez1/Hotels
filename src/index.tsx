@@ -3,18 +3,41 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ThemeProviderWrapper } from "context/ThemeContext";
 import { CssBaseline } from "@mui/material";
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import { ThemeProviderWrapper } from "./context/ThemeContext";
+import { SnackbarProvider } from "notistack";
+import { MAX_SNACKBARS_ALLOWED, SNACKBAR_AUTO_HIDE_DURATION } from "constants/Generals";
+import Alert,{ AlertOptions } from "components/Alerts/Alert";
+import Snackbar from "components/Snackbar";
 
+declare module "notistack" {
+  interface VariantOverrides {
+    alert: AlertOptions;
+  }
+}
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <ThemeProviderWrapper>
-    <CssBaseline />
-      <App />
-    </ThemeProviderWrapper>
+    <SnackbarProvider
+      autoHideDuration={SNACKBAR_AUTO_HIDE_DURATION}
+      maxSnack={MAX_SNACKBARS_ALLOWED}
+      Components={{ alert: Alert }}
+      anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+    >
+      <BrowserRouter>
+        <AuthProvider>
+          <ThemeProviderWrapper>
+            <Snackbar />
+            <CssBaseline />
+            <App />
+          </ThemeProviderWrapper>
+        </AuthProvider>
+      </BrowserRouter>
+    </SnackbarProvider>
   </React.StrictMode>
 );
 
