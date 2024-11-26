@@ -1,5 +1,5 @@
-import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
-import { ThemeProvider } from '@mui/material/styles';
+import React, { createContext, useState, useContext, ReactNode } from 'react';
+import { ThemeProvider as MuiThemeProvider, useTheme as MuiUseTheme } from '@mui/material/styles';
 import { darkTheme, lightTheme } from 'Theme'; 
 import { getTheme, setTheme } from 'utils/themeUtils';
 
@@ -12,23 +12,23 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const useTheme = (): ThemeContextType => {
   const context = useContext(ThemeContext);
-  
+
   if (!context) {
-    throw new Error('useTheme must be used within a ThemeProviderWrapper');
+    throw new Error('useThemeContext must be used within a ThemeProviderWrapper');
   }
   return context;
 };
 
 export const ThemeProviderWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
   const savedTheme = getTheme();
-  const initialTheme = savedTheme === 'dark' ? true : false;
+  const initialTheme = savedTheme === 'dark';
 
   const [isDarkMode, setIsDarkMode] = useState<boolean>(initialTheme);
 
   const toggleTheme = () => {
-    setIsDarkMode(prevMode => {
+    setIsDarkMode((prevMode) => {
       const newMode = !prevMode;
-      setTheme(newMode ? 'dark' : 'light'); 
+      setTheme(newMode ? 'dark' : 'light');
       return newMode;
     });
   };
@@ -37,9 +37,9 @@ export const ThemeProviderWrapper: React.FC<{ children: ReactNode }> = ({ childr
 
   return (
     <ThemeContext.Provider value={{ toggleTheme, isDarkMode }}>
-      <ThemeProvider theme={theme}>
+      <MuiThemeProvider theme={theme}>
         {children}
-      </ThemeProvider>
+      </MuiThemeProvider>
     </ThemeContext.Provider>
   );
 };

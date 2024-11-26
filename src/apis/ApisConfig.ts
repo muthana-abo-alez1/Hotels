@@ -1,28 +1,11 @@
 import axios, { HttpStatusCode } from "axios";
-import { ENV } from "constants/Env.contants";
-import { TIME_OUT } from "constants/Generals.constants";
-import { ErrorTypes } from "enum/ErrorsTypes.enum";
-import { getToken } from "utils/tokenUtils";
-
+import { TIME_OUT } from "constants/Generals";
+import { ErrorTypes } from "enum/ErrorsTypes";
 
 const axiosInstance = axios.create({
-  baseURL: ENV.BASE_URL,
+  baseURL: process.env.REACT_APP_BASE_URL,
   timeout: TIME_OUT,
 });
-
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = getToken();
-    if (!token) {
-      return config;
-    }
-    config.headers.Authorization = `Bearer ${token}`;
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
 
 function handleError(error: any) {
   if (axios.isAxiosError(error) && error.response) {

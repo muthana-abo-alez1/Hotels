@@ -1,24 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Box, Button, TextField, Typography, Container } from "@mui/material";
 import { useFormik } from "formik";
-import { login } from "services/login/authService";
-import { useNavigate } from "react-router-dom";
-import { ILoginPayload } from "interfaces/ILoginPayload.interface";
+import { ILoginPayload } from "interfaces/AuthenticationRequest";
 import { loginValidationSchema } from "./validations";
 import ThemeSwitcher from "components/ThemeSwitcher";
-import style from "./Login.module.scss"
-import { getToken, getUserType } from "utils/tokenUtils";
-import { ROUTES } from "constants/Routing.constants";
+import style from "./Login.module.scss";
+import { useAuth } from "context/AuthContext";
+
 
 const Login: React.FC = () => {
-const navigate = useNavigate()
-  const token = getToken()
-  useEffect(()=>{
-    if(token){
-      navigate(`/${getUserType()?.toLowerCase()}${ROUTES.HOME}`)
-    }
-  },[token])
-
+  const { login } = useAuth();
   const formik = useFormik<ILoginPayload>({
     initialValues: {
       username: "",
@@ -26,18 +17,13 @@ const navigate = useNavigate()
     },
     validationSchema: loginValidationSchema,
     onSubmit: async (values) => {
-        try {
-          const response = await login(values);
-          navigate(`/${response.userType.toLowerCase()}`);
-        } catch (error) {
-          console.error("Login failed:", error);
-        }
-      },
-    });
+      login(values)
+    },
+  });
 
   return (
     <Container maxWidth="xs">
-    <div className={style.themeSwitcher}>
+      <div className={style.themeSwitcher}>
         <ThemeSwitcher />
       </div>
       <Box
