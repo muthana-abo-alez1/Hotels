@@ -1,6 +1,6 @@
 import Home from "pages/Home";
 import Login from "pages/Login";
-import NotFound from "pages/NotFound";
+import NotFound from "pages/ErrorPage";
 import AdminRoute from "router/AdminRoute";
 import UserRoute from "router/UserRoute";
 

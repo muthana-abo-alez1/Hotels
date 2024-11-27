@@ -1,7 +1,7 @@
 import { ILoginPayload } from "interfaces/AuthenticationRequest";
 import { ILoginResponse } from "interfaces/AuthenticationResponse";
 import { axiosInstance, handleError } from "apis/ApisConfig";
-import { showErrorSnackbar, showSuccessSnackbar } from "utils/snackbarUtils";
+import { showErrorSnackbar } from "utils/snackbarUtils";
 
 const API_BASE_URL = "/api/auth";
 export const loginUser = async (
@@ -17,13 +17,10 @@ export const loginUser = async (
       `${API_BASE_URL}/authenticate`,
       requestBody
     );
-    showSuccessSnackbar("Login Successful", "You have logged in successfully.");
-    
     return response.data;
   } catch (error) {
     const handledError = handleError(error);
     showErrorSnackbar("Error",handledError.message);
-
     throw handledError;
   }
 };

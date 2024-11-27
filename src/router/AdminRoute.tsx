@@ -1,5 +1,5 @@
 import Admin from "pages/Admin";
-import NotFound from "pages/NotFound";
+import NotFound from "pages/ErrorPage";
 import { Route, Routes } from "react-router-dom";
 
 const AdminRoute = () => {

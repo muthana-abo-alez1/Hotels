@@ -1,12 +1,12 @@
 import React from 'react';
-import style from './NotFound.module.scss';
+import style from './ErrorPage.module.scss';
 
-interface NotFoundProps {
+interface ErrorPageProps {
   number?: number;
   msg?: string;
 }
 
-const NotFound: React.FC<NotFoundProps> = ({ number = 404, msg = 'Not Found' }) => {
+const ErrorPage: React.FC<ErrorPageProps> = ({ number = 404, msg = 'Not Found' }) => {
   return (
     <div className={style.notFoundContainer}>
       <h1 className={style.notFoundHeading}>{number}</h1>
@@ -15,4 +15,4 @@ const NotFound: React.FC<NotFoundProps> = ({ number = 404, msg = 'Not Found' }) 
   );
 };
 
-export default NotFound;
+export default ErrorPage;

@@ -1,13 +1,13 @@
 import ThemeSwitcher from "components/ThemeSwitcher";
 import { useAuth } from "context/AuthContext";
 import { Outlet } from "react-router-dom";
-import { showErrorSnackbar, showInfoSnackbar, showSuccessSnackbar, showWarningSnackbar } from "utils/snackbarUtils";
+import { showErrorSnackbar, showInfoSnackbar, showSnackbar, showWarningSnackbar } from "utils/snackbarUtils";
 
 const Home = () => {
   const { logout } = useAuth();
 
   const handleSuccess = () => {
-    showSuccessSnackbar("Success", "You have successfully logged in!");
+    showSnackbar("Success", "You have successfully logged in!!","success");
   };
   
   const handleError = () => {

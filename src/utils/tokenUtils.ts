@@ -14,6 +14,7 @@ export const removeToken = (): void => {
 };
 
 export const getUserType = (token : string|null): string|null => {
+  if (!token) return null
   try {
     const parts = token?.split('.');
     if (parts?.length !== 3) {

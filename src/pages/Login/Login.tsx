@@ -1,5 +1,6 @@
-import React from "react";
-import { Box, Button, TextField, Typography, Container } from "@mui/material";
+import React, { useState } from "react";
+import { Box, TextField, Typography, Container } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton"; 
 import { useFormik } from "formik";
 import { ILoginPayload } from "interfaces/AuthenticationRequest";
 import { loginValidationSchema } from "./validations";
@@ -7,9 +8,10 @@ import ThemeSwitcher from "components/ThemeSwitcher";
 import style from "./Login.module.scss";
 import { useAuth } from "context/AuthContext";
 
-
 const Login: React.FC = () => {
   const { login } = useAuth();
+  const [loading, setLoading] = useState(false); 
+
   const formik = useFormik<ILoginPayload>({
     initialValues: {
       username: "",
@@ -17,7 +19,12 @@ const Login: React.FC = () => {
     },
     validationSchema: loginValidationSchema,
     onSubmit: async (values) => {
-      login(values)
+      setLoading(true); 
+      try {
+        await login(values);
+      } finally {
+        setLoading(false); 
+      }
     },
   });
 
@@ -62,15 +69,16 @@ const Login: React.FC = () => {
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
-          <Button
+          <LoadingButton
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
+            loading={loading} 
             sx={{ mt: 2 }}
           >
             Login
-          </Button>
+          </LoadingButton>
         </form>
       </Box>
     </Container>

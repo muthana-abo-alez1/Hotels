@@ -1,12 +1,13 @@
 import { snackbarRef } from "components/Snackbar/Snackbar";
+import { SnackbarType } from "types/SnackbarType";
 
-export const showSnackbar = (
+export const Snackbar = (
   message: string,
   options: {
     variant?: "alert";
     title: string;
     text: string;
-    type: "success" | "error" | "warning" | "info";
+    type: SnackbarType;
   }
 ) => {
   if (!snackbarRef) {
@@ -17,13 +18,16 @@ export const showSnackbar = (
 };
 
 export const showSuccessSnackbar = (title: string, text: string) =>
-  showSnackbar("Success", { type: "success", title, text, variant: "alert" });
+  Snackbar("Success", { type: "success", title, text, variant: "alert" });
 
 export const showErrorSnackbar = (title: string, text: string) =>
-  showSnackbar("Error", { type: "error", title, text, variant: "alert" });
+  Snackbar("Error", { type: "error", title, text, variant: "alert" });
 
 export const showWarningSnackbar = (title: string, text: string) =>
-  showSnackbar("Warning", { type: "warning", title, text, variant: "alert" });
+  Snackbar("Warning", { type: "warning", title, text, variant: "alert" });
 
 export const showInfoSnackbar = (title: string, text: string) =>
-  showSnackbar("Info", { type: "info", title, text, variant: "alert" });
+  Snackbar("Info", { type: "info", title, text, variant: "alert" });
+
+export const showSnackbar = (title: string, text: string , type:SnackbarType) =>
+  Snackbar(title, { type: type, title, text, variant: "alert" });

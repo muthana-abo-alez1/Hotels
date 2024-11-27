@@ -1,16 +1,18 @@
 import React from 'react';
 import { useAuth } from 'context/AuthContext';
-import NotFound from 'pages/NotFound';
+import NotFound from 'pages/ErrorPage';
 import { showFailureAlert } from 'utils/Alert';
+import Login from 'pages/Login';
 
 export const ProtectedRoute: React.FC<{ 
     children: JSX.Element, 
     onlyAdmin?: boolean 
 }> = ({ children, onlyAdmin = false }) => {
-  const { userType, isAuthenticated } = useAuth();
+  const { userType, isAuthenticated  } = useAuth();
+
 
   if (!isAuthenticated()) {
-    return <NotFound number={401} msg="Unauthorized" />;
+    return <Login/>; 
   }
 
   if (onlyAdmin && userType !== 'Admin') {

@@ -23,6 +23,7 @@ const showAlert = (
     showCancelButton: true,
     cancelButtonText: "Hide",
     customClass: {
+      cancelButton:"",
       title: "text-center title",
       htmlContainer: "text-center title me-0 ms-0 overflow-visible",
     },
