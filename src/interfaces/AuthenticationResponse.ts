@@ -1,4 +1,4 @@
-export interface ILoginResponse {
+export interface AuthenticationResponse {
     userType: 'Admin' | 'User';
     authentication: string;
 }

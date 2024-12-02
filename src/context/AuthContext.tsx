@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { ILoginPayload } from "interfaces/AuthenticationRequest";
+import { AuthenticationRequest } from "interfaces/AuthenticationRequest";
 import { useNavigate } from "react-router-dom";
 import {
   getToken,
@@ -15,7 +15,7 @@ import { showSuccessSnackbar } from "utils/snackbarUtils";
 
 interface AuthContextProps {
   userType: UserType | null;
-  login: (values: ILoginPayload) => Promise<void>;
+  login: (values: AuthenticationRequest) => Promise<void>;
   logout: () => void;
   isAuthenticated: () => boolean;
 }
@@ -50,22 +50,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     };
   }, [token]);
 
-  const login = async (values: ILoginPayload): Promise<void> => {
+  const login = async (values: AuthenticationRequest): Promise<void> => {
     const response = await loginUser(values);
     const { authentication, userType } = response;
     setToken(authentication);
     setTokenCookies(authentication);
     setUserType(userType);
-    navigate(`/${userType.toLowerCase()}/${ROUTES.HOME.path}`);
+    if (userType.toLowerCase() === "admin") navigate(`/admin/cities`);
+    else if (userType.toLowerCase() === "user") navigate(`/user/home`);
+    else navigate(`/`);
+
     showSuccessSnackbar("Login Successful", "You have logged in successfully.");
   };
 
   const logout = () => {
-    navigate(`/${ROUTES.LOGIN.path}`)
+    navigate(`/${ROUTES.LOGIN.path}`);
     removeToken();
     setToken(null);
     setUserType(null);
-    
   };
 
   const isAuthenticated = () => {

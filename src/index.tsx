@@ -8,9 +8,14 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { ThemeProviderWrapper } from "./context/ThemeContext";
 import { SnackbarProvider } from "notistack";
-import { MAX_SNACKBARS_ALLOWED, SNACKBAR_AUTO_HIDE_DURATION } from "constants/Generals";
-import Alert,{ AlertOptions } from "components/Alerts/Alert";
+import {
+  MAX_SNACKBARS_ALLOWED,
+  SNACKBAR_AUTO_HIDE_DURATION,
+} from "constants/Generals";
+import Alert, { AlertOptions } from "components/Alerts/Alert";
 import Snackbar from "components/Snackbar";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 declare module "notistack" {
   interface VariantOverrides {
@@ -33,7 +38,9 @@ root.render(
           <ThemeProviderWrapper>
             <Snackbar />
             <CssBaseline />
-            <App />
+            <Provider store={store}>
+              <App />
+            </Provider>
           </ThemeProviderWrapper>
         </AuthProvider>
       </BrowserRouter>

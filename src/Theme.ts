@@ -4,28 +4,37 @@ const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#2196f3', 
+      main: '#031930',
     },
     secondary: {
-      main: '#00bcd4', 
+      main: '#ffffff',
     },
     background: {
-      default: '#333333', 
-      paper: '#424242', 
+      default: '#333333',
+      paper: '#424242',
     },
     text: {
       primary: '#ffffff',
     },
+    action: {
+      hover: '#444444',
+    },
+    common:{
+      black:"#444444",
+     }
   },
   components: {
-    MuiButton: {
+    MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: '#2196f3', 
-          color: '#fff', 
-          '&:hover': {
-            backgroundColor: '#1976d2', 
-          },
+          backgroundColor: '#031930',
+        },
+      },
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+         
         },
       },
     },
@@ -36,28 +45,39 @@ const lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#005f73', 
+      main: '#73c2fb',
     },
     secondary: {
-      main: '#ff6f61', 
+      main: '#4DA9E1',
     },
     background: {
-      default: '#fafafa', 
-      paper: '#ffffff', 
+      default: '#fafafa',
+      paper: '#ffffff',
     },
     text: {
-      primary: '#333333', 
+      primary: '#333333',
     },
+    action: {
+      hover: '#eeeeee',
+    },
+    common:{
+      black:"#eeeeee",
+    }
   },
   components: {
-    MuiButton: {
+    MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: '#2196f3',
-          color: '#fff', 
-          '&:hover': {
-            backgroundColor: '#1976d2',
-          },
+          backgroundColor: '#73c2fb',
+        },
+      },
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: '#1E1E1E',
+          color:'#eeeeee'
+
         },
       },
     },

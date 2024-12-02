@@ -2,17 +2,16 @@ import React, { useState } from "react";
 import { Box, TextField, Typography, Container } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton"; 
 import { useFormik } from "formik";
-import { ILoginPayload } from "interfaces/AuthenticationRequest";
+import { AuthenticationRequest } from "interfaces/AuthenticationRequest";
 import { loginValidationSchema } from "./validations";
-import ThemeSwitcher from "components/ThemeSwitcher";
-import style from "./Login.module.scss";
 import { useAuth } from "context/AuthContext";
+import Header from "components/Header";
 
 const Login: React.FC = () => {
   const { login } = useAuth();
   const [loading, setLoading] = useState(false); 
 
-  const formik = useFormik<ILoginPayload>({
+  const formik = useFormik<AuthenticationRequest>({
     initialValues: {
       username: "",
       password: "",
@@ -30,9 +29,7 @@ const Login: React.FC = () => {
 
   return (
     <Container maxWidth="xs">
-      <div className={style.themeSwitcher}>
-        <ThemeSwitcher />
-      </div>
+      <Header link="../login"/>
       <Box
         display="flex"
         flexDirection="column"
@@ -40,8 +37,8 @@ const Login: React.FC = () => {
         justifyContent="center"
         minHeight="100vh"
       >
-        <Typography variant="h4" component="h1" gutterBottom>
-          Login
+        <Typography variant="h3" component="h1" gutterBottom>
+        Hotels
         </Typography>
         <form onSubmit={formik.handleSubmit} style={{ width: "100%" }}>
           <TextField
@@ -50,6 +47,7 @@ const Login: React.FC = () => {
             id="username"
             name="username"
             label="Username"
+            color="secondary"
             value={formik.values.username}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -63,6 +61,7 @@ const Login: React.FC = () => {
             name="password"
             label="Password"
             type="password"
+            color="secondary"
             value={formik.values.password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}

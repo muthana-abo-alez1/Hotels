@@ -2,6 +2,9 @@ import ThemeSwitcher from "components/ThemeSwitcher";
 import { useAuth } from "context/AuthContext";
 import { Outlet } from "react-router-dom";
 import { showErrorSnackbar, showInfoSnackbar, showSnackbar, showWarningSnackbar } from "utils/snackbarUtils";
+import img from "./image.png"
+import dark from "./darkimg.png"
+import imgdark from "./dark.png"
 
 const Home = () => {
   const { logout } = useAuth();
@@ -28,7 +31,9 @@ const Home = () => {
 
   return (
     <div>
-      Home
+      
+      <img src={imgdark}  style={{position:"absolute", width:"100%",height:"100%",zIndex:"-10"}}></img>
+Home
       <button onClick={handleLogout}>Logout</button>
       <div>
         <button onClick={handleSuccess}>Show Success Snackbar</button>
