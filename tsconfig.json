@@ -10,6 +10,7 @@
     "paths": {
       "@pages/*": ["src/pages/*"],
       "@components/*": ["src/components/*"],
+      "@redux/*": ["src/redux/*"],
       "@assets/*": ["src/assets/*"]
     },
     "allowJs": true,
