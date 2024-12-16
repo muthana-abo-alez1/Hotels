@@ -12,3 +12,16 @@ export interface specificHotel {
   imageUrl: string;
   cityId: number;
 }
+
+export interface HotelCard {
+  hotelId: number;
+  originalRoomPrice: number;
+  discount: number;
+  finalPrice: number;
+  cityName: string;
+  hotelName: string;
+  hotelStarRating: number;
+  title: string;
+  description: string;
+  roomPhotoUrl: string;
+}
