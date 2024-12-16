@@ -1,7 +1,6 @@
 import { AuthenticationRequest } from "interfaces/AuthenticationRequest";
 import { AuthenticationResponse } from "interfaces/AuthenticationResponse";
-import { axiosInstance, handleError } from "apis/ApisConfig";
-import { showErrorSnackbar } from "utils/snackbarUtils";
+import { axiosInstance } from "apis/ApisConfig";
 
 const API_BASE_URL = "/api/auth";
 export const loginUser = async (
@@ -19,8 +18,6 @@ export const loginUser = async (
     );
     return response.data;
   } catch (error) {
-    const handledError = handleError(error);
-    showErrorSnackbar("Error",handledError.message);
-    throw handledError;
+    throw error;
   }
 };

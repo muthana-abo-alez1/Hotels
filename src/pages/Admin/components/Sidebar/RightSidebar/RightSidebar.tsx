@@ -32,8 +32,8 @@ const RightSidebar: React.FC<RightSideProps> = ({
       >
         <Paper
           sx={{
-            minHeight: "100vh",
-            height: "auto",
+            height: "100vh",
+            minHeight:"max-content",
             pt: 12,
             boxShadow:"none",
             boxSizing:"content-box",

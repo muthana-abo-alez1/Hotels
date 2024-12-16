@@ -30,3 +30,25 @@ export const getUserType = (token : string|null): string|null => {
   }
 };
 
+export const getUserId = ():string|null => {
+  const token = getToken()
+  if (!token) return null;
+
+  try {
+    const parts = token.split('.');
+
+    if (parts.length !== 3) {
+      throw new Error("Invalid token");
+    }
+
+    const base64Url = parts[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); 
+    const decodedPayload = JSON.parse(atob(base64));
+
+    return decodedPayload.user_id; 
+  } catch (error) {
+    console.error("Failed to decode token:", error);
+    return null;
+  }
+};
+

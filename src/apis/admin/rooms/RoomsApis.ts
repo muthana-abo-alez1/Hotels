@@ -1,8 +1,7 @@
-import { axiosInstance, handleError } from "apis/ApisConfig";
+import { axiosInstance } from "apis/ApisConfig";
 import { Amenities } from "interfaces/amenities";
 import { Photo } from "interfaces/Photo";
 import { Room, RoomResponse } from "interfaces/Room";
-import { showErrorSnackbar } from "utils/snackbarUtils";
 
 const API_BASE_URL = "/api";
 
@@ -21,11 +20,28 @@ export const getRoomsFromSpecificHotel = async (
       );
       return response.data;
     } catch (error) {
-      const handledError = handleError(error);
-      showErrorSnackbar("Error", handledError.message);
-      throw handledError;
+      throw error;
     }
 };
+
+export const getAvailableRoomsFromSpecificHotel = async (
+  hotelId: number,
+  checkInDate: string = "test",
+  checkOutDate: string = "test"
+): Promise<Room[]> => {
+  try {
+    const response = await axiosInstance.get<Room[]>(
+      `${API_BASE_URL}/hotels/${hotelId}/available-rooms`,
+      {
+        params: { checkInDate, checkOutDate }, 
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 
 export const postRoom = async (
     hotelId: number,
@@ -42,9 +58,7 @@ export const postRoom = async (
       );
       return response.data;
     } catch (error) {
-      const handledError = handleError(error);
-      showErrorSnackbar("Error", handledError.message);
-      throw handledError;
+      throw error;
     }
 };
 
@@ -53,9 +67,7 @@ export const deleteRoom = async (hotelId: number,roomId:number): Promise<Room> =
       const response = await axiosInstance.delete<Room>( `${API_BASE_URL}/hotels/${hotelId}/rooms/${roomId}`);
       return response.data;
     } catch (error) {
-      const handledError = handleError(error);
-      showErrorSnackbar("Error", handledError.message);
-      throw handledError;
+      throw error;
     }
 };
 
@@ -72,9 +84,7 @@ export const postPhotoForRoom = async (
     );
     return response.data;
   } catch (error) {
-    const handledError = handleError(error);
-    showErrorSnackbar("Error", handledError.message);
-    throw handledError;
+    throw error;
   }
 };
 
@@ -94,9 +104,7 @@ export const postAmenityForRoom = async (
     );
     return response.data;
   } catch (error) {
-    const handledError = handleError(error);
-    showErrorSnackbar("Error", handledError.message);
-    throw handledError;
+    throw error;
   }
 };
 

@@ -20,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({ link }) => {
         "background-image": "none",
         height: "64px",
         boxSizing: "border-box",
-        width: "100vw",
+        width: "100%",
       }}
     >
       <Toolbar>

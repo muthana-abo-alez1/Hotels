@@ -13,7 +13,6 @@ const DropPhoto: React.FC<DropPhotoProps> = ({ onImageUpload, url }) => {
 
   useEffect(() => {
     if (url) {
-        console.log(url)
       setImageUrl(url); 
     } else {
       setImageUrl(null); 

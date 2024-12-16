@@ -133,13 +133,14 @@ const RoomsForm: React.FC<RoomsFormProps> = ({
       onSubmit={handleSubmit}
     >
       {({ errors, touched, isSubmitting, dirty, values }) => (
-        <Form>
+        <Form >
           <Box
             sx={{
               display: "flex",
               flexDirection: "column",
               gap: 2,
               padding: 3,
+              minHeight:"max-content",
             }}
           >
             <Box
