@@ -1,0 +1,6 @@
+.hotelCard {
+    position: relative;
+    &:hover .hover-overlay {
+      display: flex;
+    }
+  }

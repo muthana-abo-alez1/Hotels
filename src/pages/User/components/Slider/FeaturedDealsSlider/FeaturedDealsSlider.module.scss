@@ -1,0 +1,35 @@
+.carouselItem {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    width: "max-content";
+    padding: 10px;
+}
+
+.carouselButton {
+    position: absolute;
+    top: 42%;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    transition: background-color 0.3s ease;
+
+    &.left {
+        left: 1px;
+        transform: translateY(-50%);
+    }
+
+    &.right {
+        right: 1px;
+        transform: translateY(-50%);
+    }
+}
