@@ -6,13 +6,7 @@
       "dom.iterable",
       "esnext"
     ],
-    "baseUrl": "src", 
-    "paths": {
-      "@pages/*": ["src/pages/*"],
-      "@components/*": ["src/components/*"],
-      "@redux/*": ["src/redux/*"],
-      "@assets/*": ["src/assets/*"]
-    },
+    "baseUrl": "src",
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -25,7 +19,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "preserve"
   },
   "include": [
     "src"

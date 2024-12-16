@@ -34,21 +34,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   );
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const requestInterceptor = axiosInstance.interceptors.request.use(
-      (config) => {
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
-      },
-      (error) => Promise.reject(error)
-    );
 
-    return () => {
-      axiosInstance.interceptors.request.eject(requestInterceptor);
-    };
-  }, [token]);
 
   const login = async (values: AuthenticationRequest): Promise<void> => {
     const response = await loginUser(values);

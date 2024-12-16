@@ -1,4 +1,4 @@
-import Home from "pages/Home";
+import Home from "pages/User/page/Home";
 import Login from "pages/Login";
 import NotFound from "pages/ErrorPage";
 import AdminRoute from "router/AdminRoute";

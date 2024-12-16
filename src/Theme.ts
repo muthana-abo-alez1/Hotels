@@ -4,7 +4,7 @@ const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#031930',
+      main: '#4581c7',
     },
     secondary: {
       main: '#ffffff',
@@ -20,14 +20,15 @@ const darkTheme = createTheme({
       hover: '#444444',
     },
     common:{
-      black:"#444444",
+      black:"#000",
+
      }
   },
   components: {
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: '#031930',
+          backgroundColor: '#4581c7',
         },
       },
     },
@@ -52,7 +53,7 @@ const lightTheme = createTheme({
     },
     background: {
       default: '#fafafa',
-      paper: '#ffffff',
+      paper: '#EFF0F2',
     },
     text: {
       primary: '#333333',
@@ -62,6 +63,7 @@ const lightTheme = createTheme({
     },
     common:{
       black:"#eeeeee",
+
     }
   },
   components: {
