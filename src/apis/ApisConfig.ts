@@ -1,12 +1,38 @@
 import axios, { HttpStatusCode } from "axios";
 import { TIME_OUT } from "constants/Generals";
 import { ErrorTypes } from "enum/ErrorsTypes";
+import { showErrorSnackbar } from "utils/snackbarUtils";
+import { getToken } from "utils/tokenUtils";
 
 const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
   timeout: TIME_OUT,
 });
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = getToken();  
 
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
+    
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error); 
+  }
+);
+
+axiosInstance.interceptors.response.use(
+  (response) => {
+    return response;  
+  },
+  (error) => {
+    const handledError = handleError(error);  
+    showErrorSnackbar("Error", handledError.message);
+    return Promise.reject(handledError);  
+  }
+);
 function handleError(error: any) {
   if (axios.isAxiosError(error) && error.response) {
     const response = error.response;

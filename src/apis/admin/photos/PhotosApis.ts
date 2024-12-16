@@ -25,8 +25,6 @@ const uploadPhoto = async (file: File): Promise<string> => {
 
     return response.data.url;
   } catch (error) {
-    handleError(error);
-    showErrorSnackbar('Error',"rror uploading image");
     throw error; 
   }
 };

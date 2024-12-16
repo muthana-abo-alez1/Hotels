@@ -1,7 +1,6 @@
 import { axiosInstance, handleError } from "apis/ApisConfig";
 import { City } from "interfaces/City";
 import { CityRequste } from "interfaces/CityRequset";
-import { showErrorSnackbar } from "utils/snackbarUtils";
 
 const API_BASE_URL = "/api";
 
@@ -20,9 +19,7 @@ export const postCity = async (
     );
     return response.data;
   } catch (error) {
-    const handledError = handleError(error);
-    showErrorSnackbar("Error",handledError.message);
-    throw handledError;
+    throw error;
   }
 };
 
@@ -43,9 +40,7 @@ export const getCities = async (
     });
     return response.data;
   } catch (error) {
-    const handledError = handleError(error);
-    showErrorSnackbar("Error", handledError.message);
-    throw handledError;
+    throw error;
   }
 };
 
@@ -59,9 +54,7 @@ export const getCity = async (id: number): Promise<City> => {
     );
     return response.data;
   } catch (error) {
-    const handledError = handleError(error);
-    showErrorSnackbar("Error", handledError.message);
-    throw handledError;
+    throw error;
   }
 };
 
@@ -75,9 +68,7 @@ export const deleteCity = async (id: number): Promise<City> => {
     );
     return response.data;
   } catch (error) {
-    const handledError = handleError(error);
-    showErrorSnackbar("Error", handledError.message);
-    throw handledError;
+    throw error;
   }
 };
 
@@ -86,8 +77,6 @@ export const updateCity = async (id: number, cityData: { name: string; descripti
     const response = await axiosInstance.put<City>(`${API_BASE_URL}/cities/${id}`, cityData);
     return response.data;
   } catch (error) {
-    const handledError = handleError(error);
-    showErrorSnackbar("Error", handledError.message);
-    throw handledError
+    throw error
   }
 };

@@ -1,5 +1,7 @@
 import { axiosInstance, handleError } from "apis/ApisConfig";
 import { Hotel, HotelPayload } from "interfaces/Hotel";
+import { Photo } from "interfaces/Photo";
+import { Review } from "interfaces/Review";
 import { specificHotel } from "interfaces/specificHotel";
 import { showErrorSnackbar } from "utils/snackbarUtils";
 
@@ -25,9 +27,7 @@ export const getHotels = async (
     );
     return response.data;
   } catch (error) {
-    const handledError = handleError(error);
-    showErrorSnackbar("Error", handledError.message);
-    throw handledError;
+    throw error;
   }
 };
 
@@ -37,10 +37,27 @@ export const getHotel = async (hotelId:number):Promise<specificHotel> => {
         `${API_BASE_URL}/hotels/${hotelId}`);
       return response.data;
     } catch (error) {
-      const handledError = handleError(error);
-      showErrorSnackbar("Error", handledError.message);
-      throw handledError;
+      throw error;
     }
+};
+
+export const getHotelReviews = async (hotelId:number):Promise<Review[]> => {
+  try {
+    const response = await axiosInstance.get<Review[]>(
+      `${API_BASE_URL}/hotels/${hotelId}/reviews`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+export const getHotelPhotos = async (hotelId:number):Promise<Photo[]> => {
+  try {
+    const response = await axiosInstance.get<Photo[]>(
+      `${API_BASE_URL}/hotels/${hotelId}/gallery`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const postHotel = async (
@@ -63,9 +80,7 @@ export const postHotel = async (
 
     return response.data;
   } catch (error) {
-    const handledError = handleError(error);
-    showErrorSnackbar("Error", handledError.message);
-    throw handledError;
+    throw error;
   }
 };
 
@@ -89,9 +104,7 @@ export const updateHotel = async (
     );
     return response.data;
   } catch (error) {
-    const handledError = handleError(error);
-    showErrorSnackbar("Error", handledError.message);
-    throw handledError;
+    throw error;
   }
 };
 
@@ -100,8 +113,18 @@ export const deleteHotel = async (hotelId: number,cityId:string): Promise<Hotel>
       const response = await axiosInstance.delete<Hotel>(`${API_BASE_URL}/cities/${cityId}/hotels/${hotelId}`,);
       return response.data;
     } catch (error) {
-      const handledError = handleError(error);
-      showErrorSnackbar("Error", handledError.message);
-      throw handledError;
+      throw error;
     }
+};
+
+export const getHotelsFromSpecificCity = async (
+  citylId: number
+): Promise<Hotel[]> => {
+  try {
+    const response = await axiosInstance.get<Hotel[]>(
+      `${API_BASE_URL}/cities/${citylId}/hotels`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
