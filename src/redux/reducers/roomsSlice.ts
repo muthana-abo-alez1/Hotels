@@ -4,12 +4,14 @@ import { Room } from "interfaces/Room";
 type RoomsState = {
   rooms: Room[];
   filteredRooms: Room[];
+  availableRooms:Room[];
   selectedRoom: Room | null;
 };
 
 const initialState: RoomsState = {
   rooms: [],
   filteredRooms: [],
+  availableRooms:[],
   selectedRoom: null,
 };
 
@@ -26,6 +28,9 @@ const roomsSlice = createSlice({
         state.rooms[index] = action.payload;
       }
     },
+    setAvailableRooms(state, action: PayloadAction<Room[]>) {
+      state.availableRooms = action.payload; 
+    },
     setFilteredRooms(state, action: PayloadAction<Room[]>) {
       state.filteredRooms = action.payload; 
     },
@@ -41,6 +46,6 @@ const roomsSlice = createSlice({
   },
 });
 
-export const { addRoom, updateRoom,setFilteredRooms, removeRoom, setRooms, setSelectedRoom } = roomsSlice.actions;
+export const { addRoom, updateRoom,setFilteredRooms, removeRoom, setRooms, setSelectedRoom,setAvailableRooms } = roomsSlice.actions;
 
 export default roomsSlice.reducer;
