@@ -40,7 +40,7 @@ const AdminPage = () => {
             flexDirection: "column",
             position: "relative",
             boxSizing:"border-box",
-            "@media (max-width: 600px)": {
+            "@media (max-width: 1200px)": {
               marginLeft: "70px",
             },
             "@media (min-width: 1200px)": {
