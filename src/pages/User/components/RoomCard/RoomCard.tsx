@@ -13,18 +13,31 @@ import {
 } from "@mui/material";
 import { Room } from "interfaces/Room";
 import AmenitiesIcons from "../Amenities/AmenitiesIcons";
-import HotelIcon from "@mui/icons-material/Hotel";
 import FamilyRestroomIcon from "@mui/icons-material/FamilyRestroom";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
+import { useNavigate } from "react-router-dom";
+import { ReservationInfo } from "interfaces/ReservationInfo";
 
-const RoomCard = ({ room }: { room: Room }) => {
+const RoomCard = ({
+  room,
+  reservationInfo, 
+}: {
+  room: Room;
+  reservationInfo: ReservationInfo; 
+}) => {
+  const { hotelId, numberOfDays, checkIn, checkOut } = reservationInfo;
   const theme = useTheme();
-
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/user/checkout", {
+      state: { room, hotelId, numberOfDays ,checkIn,checkOut},
+    });
+  };
   return (
     <Card
       sx={{
         width: 330,
-        maxHeight:430,
+        maxHeight: 430,
         margin: "auto",
         borderRadius: theme.shape.borderRadius,
         boxShadow: theme.shadows[3],
@@ -52,8 +65,8 @@ const RoomCard = ({ room }: { room: Room }) => {
           fontWeight="bold"
           sx={{
             color: "primary.main",
-            maxHeight:33,
-            textWrap:'nowrap',
+            maxHeight: 33,
+            textWrap: "nowrap",
           }}
         >
           {room.roomType} Room
@@ -67,7 +80,7 @@ const RoomCard = ({ room }: { room: Room }) => {
             marginTop: 1,
             color: "text.secondary",
             fontSize: "0.9rem",
-            maxHeight:20,
+            maxHeight: 20,
           }}
         >
           <EmojiPeopleIcon fontSize="small" />
@@ -84,10 +97,13 @@ const RoomCard = ({ room }: { room: Room }) => {
           sx={{
             marginTop: 2,
             marginBottom: 2,
-            maxHeight:32,
+            maxHeight: 32,
           }}
         >
-          <AmenitiesIcons amenities={room.roomAmenities} iconSize="small" backgroundColor={theme.palette.background.default}/>
+          <AmenitiesIcons
+            amenities={room.roomAmenities}
+            iconSize="small"
+          />
         </Box>
 
         <Box
@@ -97,7 +113,7 @@ const RoomCard = ({ room }: { room: Room }) => {
             alignItems: "center",
           }}
         >
-          <Typography variant="h5"  sx={{ fontWeight: "bold" }}>
+          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
             ${room.price}
           </Typography>
           <Typography
@@ -111,14 +127,15 @@ const RoomCard = ({ room }: { room: Room }) => {
         <Button
           variant="contained"
           color="primary"
-          disabled={!room.availability} 
+          disabled={!room.availability}
           sx={{
             marginTop: "10px",
             width: "100%",
             height: "50px",
             alignSelf: "flex-end",
+            color:"white"
           }}
-          //onClick={}
+          onClick={handleClick}
         >
           Book Now
         </Button>

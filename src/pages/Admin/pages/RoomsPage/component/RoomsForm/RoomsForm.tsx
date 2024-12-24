@@ -7,6 +7,7 @@ import {
   InputLabel,
   FormControl,
   Button,
+  IconButton,
 } from "@mui/material";
 import { Formik, Form, Field, FieldArray } from "formik";
 import { LoadingButton } from "@mui/lab";
@@ -25,6 +26,7 @@ import { roomsValidationSchema } from "./validation";
 import { Hotel } from "interfaces/Hotel";
 import DropPhoto from "pages/Admin/components/DropPhoto";
 import { Amenities } from "interfaces/amenities";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface RoomsFormProps {
   onClose: () => void;
@@ -133,14 +135,14 @@ const RoomsForm: React.FC<RoomsFormProps> = ({
       onSubmit={handleSubmit}
     >
       {({ errors, touched, isSubmitting, dirty, values }) => (
-        <Form >
+        <Form>
           <Box
             sx={{
               display: "flex",
               flexDirection: "column",
               gap: 2,
               padding: 3,
-              minHeight:"max-content",
+              minHeight: "max-content",
             }}
           >
             <Box
@@ -277,13 +279,9 @@ const RoomsForm: React.FC<RoomsFormProps> = ({
                           fullWidth
                           variant="outlined"
                         />
-                        <Button
-                          color="secondary"
-                          variant="contained"
-                          onClick={() => remove(index)}
-                        >
-                          Remove
-                        </Button>
+                        <IconButton color="error" onClick={() => remove(index)}>
+                          <DeleteIcon />
+                        </IconButton>
                       </Box>
                     )
                   )}

@@ -72,13 +72,13 @@ const HotelsPage: React.FC = () => {
   };
 
   const columns = [
-    { id: "id", label: "ID" },
-    { id: "name", label: "Name" },
-    { id: "description", label: "Description" },
-    { id: "hotelType", label: "HotelType" },
-    { id: "starRating", label: "StarRating" },
-    { id: "latitude", label: "Latitude" },
-    { id: "longitude", label: "Longitude" },
+    { id: "id", label: "ID" ,width: 100 },
+    { id: "name", label: "Name" ,width: 150},
+    { id: "description", label: "Description",width: 450 } ,
+    { id: "hotelType", label: "HotelType" ,width: 50},
+    { id: "starRating", label: "StarRating" ,width: 50},
+    { id: "latitude", label: "Latitude" ,width: 100},
+    { id: "longitude", label: "Longitude" ,width: 100},
   ];
 
   return (

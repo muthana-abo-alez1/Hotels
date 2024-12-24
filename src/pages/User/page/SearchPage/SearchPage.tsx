@@ -8,15 +8,22 @@ import {
   CircularProgress,
 } from "@mui/material";
 import FilterIcon from "@mui/icons-material/FilterAlt";
+import SortIcon from "@mui/icons-material/Sort";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ChevronLeft } from "@mui/icons-material";
+import { ChevronRight } from "@mui/icons-material";
 import SearchBar from "pages/User/components/SearchBar";
 import { HotelSearch } from "interfaces/Hotel";
 import SearchCard from "pages/User/components/SearchCard/SearchCard";
 import { searchHotels } from "apis/user/Home/HomeApis";
+import dayjs from "dayjs";
+import SortSidebar from "./component/SortSidebar";
 
 const SearchPage = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarPosition, setSidebarPosition] = useState<"left" | "right">(
+    "left"
+  );
   const navigate = useNavigate();
   const theme = useTheme();
   const [hotels, setHotels] = useState<HotelSearch[]>([]);
@@ -42,7 +49,14 @@ const SearchPage = () => {
     numberOfRooms: parseInt(searchParams.get("rooms") || "2"),
     starRate: parseInt(searchParams.get("starRate") || "5"),
     sort: searchParams.get("sort") || "",
-  };
+  }; 
+
+  const [checkInDate, setCheckInDate] = useState<string>(
+    initialParams.checkInDate || dayjs().format("YYYY-MM-DD")
+  );
+  const [checkOutDate, setCheckOutDate] = useState<string>(
+    initialParams.checkOutDate || dayjs().add(1, "day").format("YYYY-MM-DD")
+  );
 
   const fetchHotels = async (searchParams: any) => {
     try {
@@ -107,6 +121,9 @@ const SearchPage = () => {
     checkOutDate: string;
     travelers: { adults: number; children: number; rooms: number };
   }) => {
+    const { checkInDate, checkOutDate } = data;
+    setCheckInDate(checkInDate);
+    setCheckOutDate(checkOutDate);
     const updatedParams = {
       city: data.location,
       checkInDate: data.checkInDate,
@@ -142,7 +159,10 @@ const SearchPage = () => {
         <ChevronLeft />
       </IconButton>
       <IconButton
-        onClick={toggleSidebar}
+        onClick={() => {
+          toggleSidebar();
+          setSidebarPosition("left");
+        }}
         edge="start"
         sx={{
           position: "fixed",
@@ -159,6 +179,28 @@ const SearchPage = () => {
         }}
       >
         <FilterIcon />
+      </IconButton>
+      <IconButton
+        onClick={() => {
+          toggleSidebar();
+          setSidebarPosition("right");
+        }}
+        edge="start"
+        sx={{
+          position: "fixed",
+          color: "white",
+          top: "150px",
+          right: { xs: "10px", sm: "10px", md: "38px" },
+          zIndex: 1000,
+          bgcolor: theme.palette.primary.main,
+          "&:hover": {
+            backgroundColor: "#1976d2",
+          },
+          boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+          marginLeft: "2rem",
+        }}
+      >
+        <SortIcon />
       </IconButton>
       <Container
         sx={{
@@ -206,13 +248,18 @@ const SearchPage = () => {
             <p>No hotels found</p>
           ) : (
             hotels.map((hotel) => (
-              <SearchCard key={hotel.hotelId} hotel={hotel} />
+              <SearchCard
+                key={hotel.hotelId}
+                hotel={hotel}
+                checkInDate={checkInDate}
+                checkOutDate={checkOutDate}
+              />
             ))
           )}
         </Container>
       </Container>
       <Drawer
-        anchor="left"
+        anchor={sidebarPosition}
         open={isSidebarOpen}
         onClose={toggleSidebar}
         sx={{
@@ -229,19 +276,23 @@ const SearchPage = () => {
           sx={{
             color: "white",
             position: "absolute",
-            right: "20px",
+            [sidebarPosition === "left" ? "right" : "left"]: "20px", 
             top: "15px",
             zIndex: 1000,
             bgcolor: theme.palette.primary.main,
             "&:hover": {
               backgroundColor: "#1976d2",
             },
-            marginRight: "1rem",
+            [sidebarPosition === "left" ? "marginRight" : "marginLeft"]: "10px",
           }}
         >
-          <ChevronLeft />
+          {sidebarPosition === "left" ? <ChevronLeft /> : <ChevronRight />}
         </IconButton>
-        <FilterSidebar handleFilter={handleFilter} initialFilters={filters} />
+        {sidebarPosition === "left" ? (
+          <FilterSidebar handleFilter={handleFilter} initialFilters={filters} />
+        ) : (
+          <SortSidebar hotels={hotels} setHotels={setHotels} setLoading={setLoading} toggleSidebar={toggleSidebar}/>
+        )}
       </Drawer>
     </div>
   );

@@ -4,7 +4,8 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 import styles from './TrendingDestinionSlider.module.scss';
 import CityCard from '../../CityCard/CityCard';
 import { HomeCities } from 'interfaces/HomeCities';
-
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 interface TrendingDestinionSliderProps {
   data: HomeCities[];  
@@ -36,12 +37,12 @@ const TrendingDestinionSlider: React.FC<TrendingDestinionSliderProps> = ({ data 
       
       renderPrevButton={() => (
         <button className={`${styles.carouselButton} ${styles.left}`}>
-          &lt;
+          <ChevronLeftIcon/>
         </button>
       )}
       renderNextButton={() => (
         <button className={`${styles.carouselButton} ${styles.right}`}>
-          &gt;
+          <ChevronRightIcon/>
         </button>
       )}
     />

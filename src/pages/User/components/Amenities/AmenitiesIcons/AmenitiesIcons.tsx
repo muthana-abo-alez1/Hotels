@@ -19,7 +19,9 @@ import BalconyIcon from '@mui/icons-material/Balcony';
 import FireplaceIcon from '@mui/icons-material/Fireplace'; 
 import HikingIcon from '@mui/icons-material/NaturePeople'
 import SpaIcon from '@mui/icons-material/BeachAccess'; 
-
+import LocationCityIcon from '@mui/icons-material/LocationCity';
+import LocalBarIcon from '@mui/icons-material/LocalBar';
+import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 
 const amenityIcons: Record<AmenityType, React.JSX.Element> = {
   "Free Wi-Fi": <WifiIcon />,
@@ -33,13 +35,13 @@ const amenityIcons: Record<AmenityType, React.JSX.Element> = {
   "Adjoining Rooms": <MeetingRoomIcon />,
   "Kitchenette": <KitchenIcon />,
   "Play Area": <PlayArrowIcon />,
-  "Budget-Friendly": <RoomServiceIcon />,
+  "Budget-Friendly": <AccessibilityNewIcon />,
   "Single Bed": <BedroomIcon />,
   "King Size Bed": <KingBedIcon />,
-  "City View": <RoomServiceIcon />,
-  "Room Service": <RoomServiceIcon />,
+  "City View": <LocationCityIcon />,
+  "Room Service": <RoomServiceIcon/>,
   "Jacuzzi": <PoolIcon />,
-  "Mini Bar": <RoomServiceIcon />,
+  "Mini Bar": <LocalBarIcon />,
   "Ocean View": <BeachAccessIcon />,
   "wifi": <WifiIcon />,              
   "Private Balcony": <BalconyIcon />, 
@@ -65,8 +67,6 @@ const AmenitiesIcons: React.FC<AmenitiesIconsProps> = ({
     medium: { boxSize: '40px', fontSize: '1.2rem' },
     large: { boxSize: '60px', fontSize: '1.5rem' },
   };
-
-  const { boxSize, fontSize } = sizeStyles[iconSize];
 
   return (
     <Box
@@ -100,7 +100,7 @@ const AmenitiesIcons: React.FC<AmenitiesIconsProps> = ({
             sx={{
               display: 'flex',
               alignItems: 'center',
-              color: (theme) => theme.palette.primary.contrastText,
+              color: "white",
               fontSize: iconSize === 'small' ? '0.8rem' : iconSize === 'large' ? '2rem' : '1.5rem', 
             }}
           >

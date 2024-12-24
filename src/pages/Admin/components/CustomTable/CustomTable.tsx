@@ -62,12 +62,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
         width: "100%",
         height: "auto",
         marginTop: "20px",
-        "@media (max-width: 1000px)": {
-          width: "80vw",
-        },
-        "@media (max-width: 700px)": {
-          width: "75vw",
-        },
+       
       }}
     >
       <TableContainer
@@ -138,29 +133,43 @@ const CustomTable: React.FC<CustomTableProps> = ({
                 <TableRow hover role="checkbox" tabIndex={-1} key={row.id} sx={{ height: 50 }}>
                   {columns.map((column) => (
                     <TableCell
-                      key={column.id}
-                      align={column.align || "center"}
-                      sx={{
-                        height: 50,
-                        width: "auto",
-                        maxWidth: column.width || "auto",
-                        lineHeight: "1.2em",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "normal",
-                        overflowWrap: "break-word",
-                        "@media (max-width: 600px)": {
-                          maxHeight: "3.6em",
-                          textWrap: "nowrap",
-                        },
-                      }}
-                    >
-                      {typeof row[column.id] === "boolean"
-                        ? row[column.id]
-                          ? "Available"
-                          : "Unavailable"
-                        : row[column.id]}
-                    </TableCell>
+                    key={column.id}
+                    align={column.align || "center"}
+                    sx={{
+                      height: 73.5,
+                      width: "auto",
+                      maxWidth: column.width,
+                      overflow: "hidden",  
+                      textOverflow: "ellipsis",  
+                      whiteSpace: "nowrap",  
+                      overflowWrap: "normal",  
+                      "@media (max-width: 600px)": {
+                        whiteSpace: "nowrap",  
+                        textOverflow: "ellipsis", 
+                        maxWidth: "50px"
+ 
+                      },
+                      "@media (max-width: 900px)": {
+                        maxWidth: "70px" ,
+                        whiteSpace: "nowrap",  
+                        textOverflow: "ellipsis", 
+ 
+                      },
+                      "@media (max-width: 1000px)": {
+                        maxWidth: "80px",
+                        whiteSpace: "nowrap",  
+                        textOverflow: "ellipsis", 
+                      },
+                    }}
+                  >
+                    {typeof row[column.id] === "boolean"
+                      ? row[column.id]
+                        ? "Available"
+                        : "Unavailable"
+                      : row[column.id]}
+                  </TableCell>
+                  
+                  
                   ))}
                   <TableCell align="center">
                     <IconButton color="primary" onClick={() => onEdit(row)}>

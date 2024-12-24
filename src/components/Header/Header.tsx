@@ -1,7 +1,6 @@
 import React from "react";
 import { AppBar, Toolbar, Box, useTheme } from "@mui/material";
 import ThemeSwitcher from "components/ThemeSwitcher";
-import BlackLogo from "../../assets/images/BlackLogo.png";
 import WhiteLogo from "../../assets/images/WhiteLogo.png";
 
 interface HeaderProps {
@@ -10,8 +9,8 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ link }) => {
   const theme = useTheme();
-
-  const logo = theme.palette.mode === "dark" ? WhiteLogo : BlackLogo;
+  
+  const logo = WhiteLogo ;
 
   return (
     <AppBar

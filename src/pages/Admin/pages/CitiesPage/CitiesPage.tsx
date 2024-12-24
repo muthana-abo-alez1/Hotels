@@ -62,10 +62,10 @@ const CitiesPage: React.FC = () => {
     setIsSelectedCity(true);
   };
 
-  const handleDeleteCity = (cityId: any) => {
-    dispatch(removeCity(cityId.id));
+  const handleDeleteCity = async (cityId: any) => {
     try {
-      deleteCity(cityId.id);
+      await deleteCity(cityId.id);
+      dispatch(removeCity(cityId.id));
       showSuccessSnackbar("Item deleted", "The item has been successfully deleted.");
     } catch (error) {
       console.error("Error deleting city:", error);

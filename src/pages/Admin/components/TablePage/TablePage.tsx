@@ -1,5 +1,5 @@
-import React, {useState } from "react";
-import { Box, TextField } from "@mui/material";
+import React, { useState } from "react";
+import { Box, TextField, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import CustomTable from "pages/Admin/components/CustomTable";
 import ConfirmDialog from "../ConfirmDialog";
@@ -25,7 +25,7 @@ interface TablePageProps<T extends Data> {
   onDeleteItem: (item: Data) => void;
   searchValue: string;
   handleSearch: (item: string) => void;
-  loading:boolean;
+  loading: boolean;
 }
 
 const TablePage = <T extends Data>({
@@ -84,28 +84,50 @@ const TablePage = <T extends Data>({
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column"}}>
-      <TextField
-        label={`Search ${title}`}
-        variant="outlined"
-        color="secondary"
-        fullWidth
-        sx={{ marginBottom: 2, width:{xs:"85%" , sm:450}}}
-        value={searchValue}
-        onChange={handleSearchChange}
-      />
-      <LoadingButton
-        variant="contained"
-        color="primary"
+      <Typography
+        variant="h4"
         sx={{
-          marginTop: "10px",
-          width: "200px",
-          height: "50px",
-          alignSelf: "flex-end",
+          textAlign: "center", 
+          fontWeight: "bold", 
+          margin: "20px 0", 
         }}
-        onClick={onAddNewItem}
       >
-        Add New {title}
-      </LoadingButton>
+        {title}
+      </Typography>
+
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap:"wrap",
+          gap:"20px"
+        }}
+      >
+        <TextField
+          label={`Search ${title}`}
+          variant="outlined"
+          color="secondary"
+          fullWidth
+          sx={{ width: { xs: "85%", sm: 450 } }}
+          value={searchValue}
+          onChange={handleSearchChange}
+        />
+        <LoadingButton
+          variant="contained"
+          color="primary"
+          sx={{
+            width: "200px",
+            height: "50px",
+            alignSelf: "flex-end",
+            color: "white",
+          }}
+          onClick={onAddNewItem}
+        >
+          Add New {title}
+        </LoadingButton>
+      </Box>
+
       <CustomTable
         columns={columns}
         data={data}

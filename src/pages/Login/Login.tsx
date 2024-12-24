@@ -74,7 +74,7 @@ const Login: React.FC = () => {
             variant="contained"
             color="primary"
             loading={loading} 
-            sx={{ mt: 2 }}
+            sx={{ mt: 2 , color:"white"}}
           >
             Login
           </LoadingButton>
