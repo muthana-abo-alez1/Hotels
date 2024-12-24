@@ -24,14 +24,20 @@ import { useLocation } from "react-router-dom";
 const Hotel = () => {
   const navigate = useNavigate();
   const theme = useTheme();
-  const [hotelId, setHotelId] = useState<number | null>(null); 
+  const [hotelId, setHotelId] = useState<number>(1); 
   const location = useLocation();
   const [hotelData, setHotelData] = useState<specificHotel | null>(null); 
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
+  const searchParams = new URLSearchParams(location.search);
 
+  const initialParams = {
+    id: searchParams.get("id") || "",
+    checkInDate: searchParams.get("checkInDate") || "test",
+    checkOutDate: searchParams.get("checkOutDate") || "test",
+  };
   useEffect(() => {
-    const encodedId = location.pathname.split("/").pop(); 
+    const encodedId = initialParams.id; 
     if (encodedId) {
       try {
         const decodedId = decodeHotelId(encodedId); 
@@ -69,14 +75,6 @@ const Hotel = () => {
     fetchHotelData();
   }, [fetchHotelData]);
 
-  const handleSearch = (data: {
-    location: string;
-    checkInDate: string;
-    checkOutDate: string;
-    travelers: { adults: number; children: number; rooms: number };
-  }) => {
-    console.log("Received Data:", data);
-  };
 
   if (loading) {
     return (
@@ -164,8 +162,7 @@ const Hotel = () => {
                 width: "100%",
               }}
             />
-            <SearchBar onSearch={handleSearch} disabledLocation />
-            <RoomContainer id={hotelId}/>
+            <RoomContainer id={hotelId} checkInData={initialParams.checkInDate} checkOutData={initialParams.checkOutDate}/>
             <Divider
               sx={{
                 borderColor: "rgba(0, 0, 0, 0.1)",

@@ -20,6 +20,10 @@ const DateCalendarPopover: React.FC<DateCalendarPopoverProps> = ({
   selectedDate,
   onDateChange,
 }) => {
+  const shouldDisableDate = (date: Dayjs) => {
+    return date.isBefore(new Date(), "day"); 
+  };
+
   return (
     <Popover
       open={open}
@@ -37,6 +41,7 @@ const DateCalendarPopover: React.FC<DateCalendarPopoverProps> = ({
             onDateChange(newValue);
             onClose();
           }}
+          shouldDisableDate={shouldDisableDate} 
         />
       </LocalizationProvider>
     </Popover>

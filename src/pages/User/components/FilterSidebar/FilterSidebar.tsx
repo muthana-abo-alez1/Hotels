@@ -191,7 +191,7 @@ const FilterSidebar: React.FC<{
         <Button
           variant="contained"
           color="primary"
-          sx={{ flex: 1 }}
+          sx={{ flex: 1 ,color:"white"}}
           onClick={handleApplyFilter}
         >
           Filter

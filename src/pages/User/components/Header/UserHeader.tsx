@@ -1,16 +1,17 @@
-import React from "react";
-import { AppBar, Toolbar, Box, useTheme, IconButton } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { AppBar, Toolbar, Box, useTheme } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import ThemeSwitcher from "components/ThemeSwitcher";
-import BlackLogo from "../../../../assets/images/BlackLogo.png";
 import WhiteLogo from "../../../../assets/images/WhiteLogo.png";
 import UserMenu from "components/UserMenu/UserMenu";
 
 const UserHeader: React.FC = () => {
   const theme = useTheme();
   const location = useLocation();
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const logo = theme.palette.mode === "dark" ? WhiteLogo : BlackLogo;
+  const logo = WhiteLogo;
+  const isHomePage = location.pathname === "/user/home";
 
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
@@ -20,21 +21,43 @@ const UserHeader: React.FC = () => {
     }
   };
 
-  const isHomePage = location.pathname === "/user/home"; 
+  useEffect(() => {
+    if (isHomePage) {
+      const handleScroll = () => {
+        setIsScrolled(window.scrollY > 200);
+      };
+
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, [isHomePage]);
+
+  const appBarBg = isHomePage
+    ? isScrolled
+      ? theme.palette.primary.main
+      : theme.palette.mode === "dark"
+      ? "rgba(255, 255, 255, 0.1)"
+      : "rgba(0, 0, 0, 0.1)"
+    : theme.palette.primary.main;
+
+  const boxShadow =
+    appBarBg === theme.palette.primary.main
+      ? "0 4px 10px rgba(0, 0, 0, 0.3)"
+      : "none";
 
   return (
     <AppBar
       position="fixed"
       sx={{
-        background:
-          theme.palette.mode === "dark"
-            ? "rgba(255, 255, 255, 0.1)"
-            : "rgba(0, 0, 0, 0.1)",
-        boxShadow: "none",
+        background: appBarBg,
+        boxShadow: boxShadow,
         height: "64px",
         display: "flex",
         justifyContent: "center",
         zIndex: theme.zIndex.appBar,
+        transition: isHomePage ? "background 0.3s ease" : "none",
       }}
     >
       <Toolbar
@@ -67,7 +90,7 @@ const UserHeader: React.FC = () => {
               alignItems: "center",
               textAlign: "center",
               "@media (max-width: 1000px)": {
-                display: "none", 
+                display: "none",
               },
             }}
           >
@@ -75,8 +98,8 @@ const UserHeader: React.FC = () => {
               { label: "Home", id: "home" },
               { label: "Featured Deals", id: "featured-deals" },
               { label: "Recently Visited", id: "recently-visited" },
-              { label: "Why Choose Us", id: "why-choose-us" },
               { label: "Trending Destination", id: "trending-destination" },
+              { label: "Why Choose Us", id: "why-choose-us" },
             ].map((link) => (
               <button
                 key={link.id}
@@ -86,19 +109,15 @@ const UserHeader: React.FC = () => {
                   border: "none",
                   cursor: "pointer",
                   textDecoration: "none",
-                  color: theme.palette.text.primary,
+                  color: "white",
                   fontSize: "1.1rem",
                   fontWeight: "600",
                   position: "relative",
                   padding: "8px 14px",
                   transition: "color 0.3s ease",
                 }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.color = theme.palette.primary.main)
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = theme.palette.text.primary)
-                }
+                onMouseEnter={(e) => (e.currentTarget.style.color = "black")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "white")}
               >
                 <span
                   style={{
@@ -118,13 +137,15 @@ const UserHeader: React.FC = () => {
             ))}
           </Box>
         ) : null}
-          <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <ThemeSwitcher />
-            <UserMenu
-              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-              transformOrigin={{ vertical: "top", horizontal: "center" }}
-            />
-          </Box>
+
+        <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <ThemeSwitcher />
+          <UserMenu
+            color={"white"}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            transformOrigin={{ vertical: "top", horizontal: "center" }}
+          />
+        </Box>
       </Toolbar>
     </AppBar>
   );

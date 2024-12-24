@@ -4,6 +4,8 @@ import "react-alice-carousel/lib/alice-carousel.css";
 import styles from "./FeaturedDealsSlider.module.scss";
 import FeaturedDealsCard from "../../FeaturedDealsCard";
 import { HotelCard } from "interfaces/specificHotel";
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 interface TrendingDestinionSliderProps {
     data: HotelCard[];  
@@ -32,12 +34,12 @@ const FeaturedDealsSlider: React.FC<TrendingDestinionSliderProps> = ({ data }) =
         disableDotsControls={false}
         renderPrevButton={() => (
           <button className={`${styles.carouselButton} ${styles.left}`}>
-            &#8592;
+            <ArrowLeftIcon/>
           </button>
         )}
         renderNextButton={() => (
           <button className={`${styles.carouselButton} ${styles.right}`}>
-            &#8594;
+            <ArrowRightIcon/>
           </button>
         )}
       />

@@ -8,6 +8,9 @@ import {
   Rating,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { setIdSelectedHotel } from "../../../../redux/reducers/hotelsSlice";
+import { useDispatch } from "react-redux";
+import dayjs from "dayjs";
 
 interface HotelCardProps {
   hotelName: string;
@@ -33,16 +36,25 @@ const HotelCard: React.FC<HotelCardProps> = ({
   hotelId = 0,
 }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const encodeHotelId = (id: number) => {
-    const encodedId = btoa(id.toString()); 
+    const encodedId = btoa(id.toString());
     return encodedId;
   };
 
   const handleClick = () => {
     if (hotelId) {
+      dispatch(setIdSelectedHotel(hotelId));
       const encodedId = encodeHotelId(hotelId);
-      navigate(`/user/hotel/${encodedId}`); 
+      const today = dayjs().format("YYYY-MM-DD");
+      const tomorrow = dayjs().add(1, "day").format("YYYY-MM-DD");
+      const queryParams = new URLSearchParams({
+        id: encodedId,
+        checkInDate: today,
+        checkOutDate: tomorrow,
+      }).toString();
+      navigate(`/user/hotel/data?${queryParams}`);
     }
   };
 
@@ -51,7 +63,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
       sx={{
         margin: "16px",
         width: "270px",
-        minWidth:"210px",
+        minWidth: "210px",
         boxShadow: 3,
         borderRadius: 2,
         overflow: "hidden",
@@ -61,7 +73,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
           transform: "scale(1.05)",
         },
       }}
-      onClick={handleClick} 
+      onClick={handleClick}
     >
       {thumbnailUrl && (
         <CardMedia
@@ -72,7 +84,12 @@ const HotelCard: React.FC<HotelCardProps> = ({
         />
       )}
       <CardContent>
-        <Typography variant="h6" fontWeight="bold" gutterBottom color="secondary">
+        <Typography
+          variant="h6"
+          fontWeight="bold"
+          gutterBottom
+          color="secondary"
+        >
           {hotelName}
         </Typography>
 

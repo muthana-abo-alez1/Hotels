@@ -12,7 +12,9 @@ import {
 import style from "./FeaturedDealsCard.module.scss";
 import { HotelCard } from "interfaces/specificHotel";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { setIdSelectedHotel } from "../../../../redux/reducers/hotelsSlice";
+import dayjs from "dayjs";
 
 const FeaturedDealsCard: React.FC<HotelCard> = ({
   originalRoomPrice,
@@ -28,16 +30,24 @@ const FeaturedDealsCard: React.FC<HotelCard> = ({
 }) => {
   const theme = useTheme();
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const encodeHotelId = (id: number) => {
-    const encodedId = btoa(id.toString()); 
+    const encodedId = btoa(id.toString());
     return encodedId;
   };
 
   const handleClick = () => {
     if (hotelId) {
+      dispatch(setIdSelectedHotel(hotelId));
       const encodedId = encodeHotelId(hotelId);
-      navigate(`/user/hotel/${encodedId}`); 
+      const today = dayjs().format("YYYY-MM-DD");
+      const tomorrow = dayjs().add(1, "day").format("YYYY-MM-DD");
+      const queryParams = new URLSearchParams({
+        id: encodedId,
+        checkInDate: today,
+        checkOutDate: tomorrow,
+      }).toString();
+      navigate(`/user/hotel/data?${queryParams}`);
     }
   };
   return (
@@ -50,7 +60,7 @@ const FeaturedDealsCard: React.FC<HotelCard> = ({
         position: "relative",
         overflow: "hidden",
         cursor: "pointer",
-        height:"500px"
+        height: "500px",
       }}
     >
       <CardMedia
@@ -85,7 +95,7 @@ const FeaturedDealsCard: React.FC<HotelCard> = ({
       </Box>
 
       <CardContent sx={{ padding: theme.spacing(2) }}>
-        <Typography variant="h6" component="div" sx={{minHeight:"65px"}}>
+        <Typography variant="h6" component="div" sx={{ minHeight: "65px" }}>
           {hotelName} - {title}
         </Typography>
         <Typography variant="body2" color="textSecondary">
@@ -126,18 +136,19 @@ const FeaturedDealsCard: React.FC<HotelCard> = ({
           </Typography>
         </Box>
         <Button
-            variant="contained"
-            color="primary"
-            sx={{
-              marginTop: "10px",
-              width: "100%",
-              height: "50px",
-              alignSelf: "flex-end",
-            }}
-            onClick={handleClick}
-          >
-            More Details
-          </Button>
+          variant="contained"
+          color="primary"
+          sx={{
+            marginTop: "10px",
+            width: "100%",
+            height: "50px",
+            alignSelf: "flex-end",
+            color:"white"
+          }}
+          onClick={handleClick}
+        >
+          More Details
+        </Button>
       </CardContent>
     </Card>
   );

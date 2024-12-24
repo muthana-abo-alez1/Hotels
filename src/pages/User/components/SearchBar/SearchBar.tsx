@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  Box,
-  TextField,
-  IconButton,
-  useTheme,
-} from "@mui/material";
+import { Box, TextField, IconButton, useTheme } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import dayjs, { Dayjs } from "dayjs";
 import LocationPopover from "./Popover/LocationPopover";
@@ -25,6 +20,7 @@ interface SearchBarProps {
   initialAdults?: number;
   initialChildren?: number;
   initialRooms?: number;
+  disabledAdults?: boolean;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
@@ -36,12 +32,19 @@ const SearchBar: React.FC<SearchBarProps> = ({
   initialAdults = 2,
   initialChildren = 0,
   initialRooms = 1,
+  disabledAdults = false,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [popoverType, setPopoverType] = useState<"location" | "travelers" | "checkIn" | "checkOut" | null>(null);
+  const [popoverType, setPopoverType] = useState<
+    "location" | "travelers" | "checkIn" | "checkOut" | null
+  >(null);
   const [location, setLocation] = useState(initialLocation);
-  const [checkInDate, setCheckInDate] = useState<Dayjs | null>(dayjs(initialCheckInDate));
-  const [checkOutDate, setCheckOutDate] = useState<Dayjs | null>(dayjs(initialCheckOutDate));
+  const [checkInDate, setCheckInDate] = useState<Dayjs | null>(
+    dayjs(initialCheckInDate)
+  );
+  const [checkOutDate, setCheckOutDate] = useState<Dayjs | null>(
+    dayjs(initialCheckOutDate)
+  );
   const theme = useTheme();
   const [travelers, setTravelers] = useState({
     adults: initialAdults,
@@ -95,12 +98,12 @@ const SearchBar: React.FC<SearchBarProps> = ({
           <Box
             sx={{
               flex: 1,
-              borderRight: `solid 2px ${theme.palette.primary.main}`,
+              borderRight: {xs: 'none',md: `solid 2px ${theme.palette.primary.main}`, },
               width: { xs: "100%", sm: "100%", md: "calc(33% - 10px)" },
               marginBottom: { xs: "10px", sm: "0" },
               minWidth: "210px",
               paddingLeft: "10px",
-              display: "flex",  
+              display: "flex",
             }}
           >
             <TextField
@@ -126,7 +129,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         <Box
           sx={{
             flex: 1,
-            borderRight: `solid 2px ${theme.palette.primary.main}`,
+            borderRight: {xs: 'none',md: `solid 2px ${theme.palette.primary.main}`, },
             width: { xs: "100%", sm: "100%", md: "calc(33% - 10px)" },
             marginBottom: { xs: "10px", sm: "0" },
             paddingLeft: "10px",
@@ -158,7 +161,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
             paddingLeft: "10px",
             width: { xs: "100%", sm: "100%", md: "calc(33% - 10px)" },
             marginBottom: { xs: "10px", sm: "0" },
-            borderRight: `solid 2px ${theme.palette.primary.main}`,
+            borderRight: disabledAdults ? "none" : {xs: 'none',md: `solid 2px ${theme.palette.primary.main}`, },
             minWidth: "150px",
           }}
         >
@@ -181,53 +184,58 @@ const SearchBar: React.FC<SearchBarProps> = ({
             onClick={(e) => handlePopoverOpen(e, "checkOut")}
           />
         </Box>
-        <Box
-          sx={{
-            flex: 1,
-            width: { xs: "100%", sm: "100%", md: "calc(33% - 10px)" },
-            marginBottom: "0",
-            paddingLeft: "10px",
-            paddingTop: "10px",
-          }}
-        >
-          <TextField
-            label="Travelers"
-            placeholder="Select travelers"
-            variant="standard"
-            InputProps={{
-              disableUnderline: true,
-              inputComponent: () => (
-                <Box
-                  sx={{
-                    whiteSpace: "pre-wrap",
-                    fontSize: "1rem",
-                    lineHeight: 1.5,
-                    minWidth: "150px",
-                    textAlign: "start",
-                  }}
-                >
-                  {`${travelers.adults} Adults, ${travelers.children} Children\n${travelers.rooms} Room`}
-                </Box>
-              ),
+        {!disabledAdults && (
+          <Box
+            sx={{
+              flex: 1,
+              width: { xs: "100%", sm: "100%", md: "calc(33% - 10px)" },
+              marginBottom: "0",
+              paddingLeft: "10px",
+              paddingTop: "10px",
             }}
-            InputLabelProps={{
-              shrink: true,
-              sx: {
-                fontSize: "1.3rem",
-                fontWeight: "bold",
-              },
-            }}
-            fullWidth
-            onClick={(e) => handlePopoverOpen(e, "travelers")}
-          />
-        </Box>
+          >
+            <TextField
+              label="Travelers"
+              placeholder="Select travelers"
+              variant="standard"
+              InputProps={{
+                disableUnderline: true,
+                inputComponent: () => (
+                  <Box
+                    sx={{
+                      whiteSpace: "pre-wrap",
+                      fontSize: "1rem",
+                      lineHeight: 1.5,
+                      minWidth: "150px",
+                      textAlign: "start",
+                    }}
+                  >
+                    {`${travelers.adults} Adults, ${travelers.children} Children\n${travelers.rooms} Room`}
+                  </Box>
+                ),
+              }}
+              InputLabelProps={{
+                shrink: true,
+                sx: {
+                  fontSize: "1.3rem",
+                  fontWeight: "bold",
+                },
+              }}
+              fullWidth
+              onClick={(e) => handlePopoverOpen(e, "travelers")}
+            />
+          </Box>
+        )}
         <IconButton
           sx={{
             backgroundColor: theme.palette.primary.main,
             padding: "12px",
             borderRadius: "50%",
-            color: theme.palette.background.paper,
+            color: "white",
             marginTop: "10px",
+            "&:hover": {
+              backgroundColor: theme.palette.secondary.main,
+            },
           }}
           onClick={handleSearch}
         >

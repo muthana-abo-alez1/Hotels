@@ -13,16 +13,21 @@ import AmenitiesIcons from "../Amenities/AmenitiesIcons";
 import { specificHotel } from "interfaces/specificHotel";
 import { getHotel } from "apis/admin/hotels/HotelsApis";
 import { useNavigate } from "react-router-dom";
+import { setIdSelectedHotel } from "../../../../redux/reducers/hotelsSlice";
+import { useDispatch } from "react-redux";
 
 interface SearchCardProps {
   hotel: HotelSearch;
+  checkInDate:string;
+  checkOutDate:string;
 }
 
-const SearchCard: React.FC<SearchCardProps> = ({ hotel }) => {
+const SearchCard: React.FC<SearchCardProps> = ({ hotel,checkInDate,checkOutDate }) => {
   const [hotelData, setHotelData] = useState<specificHotel | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const discountedPrice = (hotel.roomPrice * (1 - hotel.discount)).toFixed(2);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const encodeHotelId = (id: number) => {
     const encodedId = btoa(id.toString()); 
@@ -46,10 +51,15 @@ const SearchCard: React.FC<SearchCardProps> = ({ hotel }) => {
   }, [fetchHotelData]);
 
   const handleClick = () => {
-    console.log(hotel.hotelId)
     if (hotel.hotelId) {
+      dispatch(setIdSelectedHotel(hotel.hotelId))
       const encodedId = encodeHotelId(hotel.hotelId);
-      navigate(`/user/hotel/${encodedId}`); 
+      const queryParams = new URLSearchParams({
+        id:encodedId,
+        checkInDate: checkInDate,
+        checkOutDate: checkOutDate,
+      }).toString();
+      navigate(`/user/hotel/data?${queryParams}`); 
     }
   };
   return (

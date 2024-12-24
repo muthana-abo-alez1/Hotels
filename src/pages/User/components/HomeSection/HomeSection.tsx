@@ -14,32 +14,6 @@ const HomeSection: React.FC = () => {
   const backgroundImage =
     theme.palette.mode === "dark" ? DarkPhoto : LightPhoto;
 
-  const fetchHotels = async (data: {
-    location: string;
-    checkInDate: string;
-    checkOutDate: string;
-    travelers: { adults: number; children: number; rooms: number };
-  }) => {
-    const { location, checkInDate, checkOutDate, travelers } = data;
-
-    const searchParams = {
-      checkInDate,
-      checkOutDate,
-      city: location,
-      starRate: 5,
-      numberOfRooms: travelers.rooms,
-      adults: travelers.adults,
-      children: travelers.children,
-    };
-
-    try {
-      const response = await searchHotels(searchParams);
-      //console.log("Search Results:", response);
-    } catch (error) {
-      console.error("Error fetching hotels:", error);
-    }
-  };
-
   const handleSearch = (data: {
     location: string;
     checkInDate: string;

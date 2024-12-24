@@ -31,7 +31,16 @@ const City = () => {
     checkOutDate: string;
     travelers: { adults: number; children: number; rooms: number };
   }) => {
-    //console.log("Received Data:", data);
+    const queryParams = new URLSearchParams({
+      location: city.cityName,
+      checkInDate: data.checkInDate,
+      checkOutDate: data.checkOutDate,
+      adults: data.travelers.adults.toString(),
+      children: data.travelers.children.toString(),
+      rooms: data.travelers.rooms.toString(),
+    }).toString();
+
+    navigate(`/user/search/data?${queryParams}`);
   };
 
   useEffect(() => {
