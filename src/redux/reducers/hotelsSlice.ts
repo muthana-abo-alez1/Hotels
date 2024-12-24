@@ -3,11 +3,13 @@ import { Hotel } from "interfaces/Hotel";
 
 type HotelsState = {
   hotels: Hotel[];
+  idSelectedHotel:number| null;
   selectedHotel: Hotel | null;
 };
 
 const initialState: HotelsState = {
   hotels: [],
+  idSelectedHotel:null,
   selectedHotel: null,
 };
 
@@ -33,10 +35,13 @@ const hotelsSlice = createSlice({
     setSelectedHotel: (state, action: PayloadAction<Hotel | null>) => {
       state.selectedHotel = action.payload;
     },
+    setIdSelectedHotel: (state, action: PayloadAction<number | null>) => {
+      state.idSelectedHotel = action.payload;; 
+    },
   },
 });
 
-export const { addHotel, updateHotel, removeHotel, setHotels, setSelectedHotel } =
+export const { addHotel, updateHotel, removeHotel, setHotels, setSelectedHotel,setIdSelectedHotel } =
 hotelsSlice.actions;
 
 export default hotelsSlice.reducer;
