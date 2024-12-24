@@ -59,7 +59,6 @@ export const getCity = async (id: number): Promise<City> => {
 };
 
 export const deleteCity = async (id: number): Promise<City> => {
-  try {
     const response = await axiosInstance.delete<City>(
       `${API_BASE_URL}/cities/${id}`,
       {
@@ -67,9 +66,6 @@ export const deleteCity = async (id: number): Promise<City> => {
       }
     );
     return response.data;
-  } catch (error) {
-    throw error;
-  }
 };
 
 export const updateCity = async (id: number, cityData: { name: string; description: string }): Promise<City> => {

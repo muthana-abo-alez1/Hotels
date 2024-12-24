@@ -36,7 +36,7 @@ axiosInstance.interceptors.response.use(
 function handleError(error: any) {
   if (axios.isAxiosError(error) && error.response) {
     const response = error.response;
-    const message = response?.data?.title || "Error";
+    const message = response?.statusText || "Error";
 
     switch (response.status) {
       case HttpStatusCode.NotFound:
