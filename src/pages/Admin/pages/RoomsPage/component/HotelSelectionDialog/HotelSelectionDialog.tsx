@@ -79,6 +79,14 @@ const HotelSelectionDialog: React.FC<HotelSelectionDialogProps> = ({
               }
               label="Select City"
               color="secondary"
+              MenuProps={{
+                PaperProps: {
+                  style: {
+                    maxHeight: 300, 
+                    overflowY: "auto",
+                  },
+                },
+              }}
             >
 
               {hotels.map((hotel: Hotel) => (
@@ -96,6 +104,7 @@ const HotelSelectionDialog: React.FC<HotelSelectionDialogProps> = ({
           color="primary"
           onClick={handleProceed}
           fullWidth
+          sx={{color:"white"}}
         >
           Proceed
         </Button>

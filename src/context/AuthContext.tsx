@@ -1,17 +1,16 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { AuthenticationRequest } from "interfaces/AuthenticationRequest";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   getToken,
   getUserType,
   removeToken,
-  setToken as setTokenCookies,
+  setToken ,
 } from "utils/tokenUtils";
 import { ROUTES } from "routes";
-import { axiosInstance } from "apis/ApisConfig";
 import { loginUser } from "apis/login/authApi";
 import { UserType } from "types/UserType";
-import { showSuccessSnackbar } from "utils/snackbarUtils";
+import { showErrorSnackbar, showSuccessSnackbar } from "utils/snackbarUtils";
 
 interface AuthContextProps {
   userType: UserType | null;
@@ -20,27 +19,33 @@ interface AuthContextProps {
   isAuthenticated: () => boolean;
 }
 
-export const AuthContext = createContext<AuthContextProps | undefined>(
-  undefined
-);
+export const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const [token, setToken] = useState<string | null>(getToken() || null);
-
-  const [userType, setUserType] = useState<UserType | null>(
-    (getUserType(token) as UserType) || null
-  );
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [userType, setUserType] = useState<UserType | null>(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
+  useEffect(() => {
+    const token = getToken();
+    if (!token) {
+      if (location.pathname !== `/${ROUTES.LOGIN.path}`) {
+        logout()
+        showErrorSnackbar("Authentication Error", "Your session has expired.");
+        
+      }
+      return;
+    }
 
+    const userTypeFromToken = getUserType(token);
+    setUserType(userTypeFromToken as UserType);
+
+  }, [navigate,location.pathname]);
 
   const login = async (values: AuthenticationRequest): Promise<void> => {
     const response = await loginUser(values);
     const { authentication, userType } = response;
-    setToken(authentication);
-    setTokenCookies(authentication);
+    setToken(authentication);  
     setUserType(userType);
     if (userType.toLowerCase() === "admin") navigate(`/admin/cities`);
     else if (userType.toLowerCase() === "user") navigate(`/user/home`);
@@ -50,15 +55,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const logout = () => {
+    removeToken(); 
+    setUserType(null); 
     navigate(`/${ROUTES.LOGIN.path}`);
-    removeToken();
-    setToken(null);
-    setUserType(null);
   };
 
   const isAuthenticated = () => {
-    return !!token;
+    return !!getToken(); 
   };
+
   return (
     <AuthContext.Provider value={{ userType, login, logout, isAuthenticated }}>
       {children}
