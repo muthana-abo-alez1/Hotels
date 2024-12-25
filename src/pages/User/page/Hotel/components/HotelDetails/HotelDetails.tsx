@@ -2,13 +2,9 @@ import React from "react";
 import {
   Box,
   Typography,
-  List,
-  ListItem,
-  ListItemText,
   Rating,
 } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import StarIcon from "@mui/icons-material/Star";
 import AmenitiesIcons from "pages/User/components/Amenities/AmenitiesIcons";
 const HotelDetails = ({ hotelData }: { hotelData: any }) => {
   return (

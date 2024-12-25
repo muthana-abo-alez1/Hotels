@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import {
   Drawer,
   List,
@@ -9,14 +9,11 @@ import {
   IconButton,
   Toolbar,
   Divider,
-  Box,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HotelIcon from "@mui/icons-material/House";
 import CitiesIcon from "@mui/icons-material/Apartment";
 import RoomIcon from "@mui/icons-material/Hotel";
-import { useAuth } from "context/AuthContext";
 import { Link, useLocation } from "react-router-dom";
 import { useTheme as MuiUseTheme } from "@mui/material/styles";
 import UserMenu from "components/UserMenu/UserMenu";
@@ -45,7 +42,7 @@ const Sidebar: React.FC<{ open: boolean; onToggle: () => void }> = ({
       PaperProps={{
         sx: {
           width: open ? drawerWidth : collapsedWidth,
-          position: { lg: "relative", md: "absolute" },
+          position: "fixed" ,
           height: `calc(100% - ${HEADER_HEIGHT}px)`,
           top: `${HEADER_HEIGHT}px`,
           left: 0,

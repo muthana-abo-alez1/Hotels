@@ -59,7 +59,7 @@ const lightTheme = createTheme({
       primary: '#333333',
     },
     action: {
-      hover: '#eeeeee',
+      hover: '#D4D4D4',
     },
     common:{
       black:"#eeeeee",

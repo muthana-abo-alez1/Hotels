@@ -35,7 +35,7 @@ interface CustomTableProps {
   onChangePage: (newPage: number) => void;
   onChangeRowsPerPage: (newRowsPerPage: number) => void;
   onEdit: (item: Data) => void;
-  onDelete: (item: Data) => void;
+  onDelete: (item: Data, event: React.MouseEvent) => void;
   loading: boolean;
 }
 
@@ -62,7 +62,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
         width: "100%",
         height: "auto",
         marginTop: "20px",
-       
+        marginBottom: "20px",
       }}
     >
       <TableContainer
@@ -98,7 +98,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                 align="center"
                 sx={{
                   height: 50,
-                  backgroundColor:theme.palette.primary.main 
+                  backgroundColor: theme.palette.primary.main,
                 }}
               >
                 Actions
@@ -130,52 +130,73 @@ const CustomTable: React.FC<CustomTableProps> = ({
           ) : (
             <TableBody>
               {currentData.map((row) => (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.id} sx={{ height: 50 }}>
+                <TableRow
+                  hover
+                  role="checkbox"
+                  tabIndex={-1}
+                  key={row.id}
+                  sx={{ height: 50, cursor: "pointer" }}
+                  onClick={() => onEdit(row)}
+                >
                   {columns.map((column) => (
                     <TableCell
-                    key={column.id}
-                    align={column.align || "center"}
-                    sx={{
-                      height: 73.5,
-                      width: "auto",
-                      maxWidth: column.width,
-                      overflow: "hidden",  
-                      textOverflow: "ellipsis",  
-                      whiteSpace: "nowrap",  
-                      overflowWrap: "normal",  
-                      "@media (max-width: 600px)": {
-                        whiteSpace: "nowrap",  
-                        textOverflow: "ellipsis", 
-                        maxWidth: "50px"
- 
-                      },
-                      "@media (max-width: 900px)": {
-                        maxWidth: "70px" ,
-                        whiteSpace: "nowrap",  
-                        textOverflow: "ellipsis", 
- 
-                      },
-                      "@media (max-width: 1000px)": {
-                        maxWidth: "80px",
-                        whiteSpace: "nowrap",  
-                        textOverflow: "ellipsis", 
-                      },
-                    }}
-                  >
-                    {typeof row[column.id] === "boolean"
-                      ? row[column.id]
-                        ? "Available"
-                        : "Unavailable"
-                      : row[column.id]}
-                  </TableCell>
-                  
-                  
+                      key={column.id}
+                      align={column.align || "center"}
+                      sx={{
+                        height: 73.5,
+                        width: "auto",
+                        maxWidth: column.width,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        overflowWrap: "normal",
+                        "@media (max-width: 600px)": {
+                          whiteSpace: "nowrap",
+                          textOverflow: "ellipsis",
+                          maxWidth: "50px",
+                        },
+                        "@media (max-width: 900px)": {
+                          maxWidth: "70px",
+                          whiteSpace: "nowrap",
+                          textOverflow: "ellipsis",
+                        },
+                        "@media (max-width: 1000px)": {
+                          maxWidth: "80px",
+                          whiteSpace: "nowrap",
+                          textOverflow: "ellipsis",
+                        },
+                      }}
+                    >
+                      {typeof row[column.id] === "boolean"
+                        ? row[column.id]
+                          ? "Available"
+                          : "Unavailable"
+                        : row[column.id]}
+                    </TableCell>
                   ))}
-                  <TableCell align="center">
-                    <IconButton color="primary" onClick={() => onEdit(row)}>
+                  <TableCell align="center" sx={{ minWidth: "150px" }}>
+                    <IconButton
+                      color="primary"
+                      onClick={(event) => onEdit(row)}
+                      sx={{
+                        "&:hover": {
+                          backgroundColor: "rgba(1, 187, 255, 0.1)", 
+                          borderRadius: "50%", 
+                        },
+                      }}
+                    >
                       <EditIcon />
                     </IconButton>
-                    <IconButton color="error" onClick={() => onDelete(row)}>
+                    <IconButton
+                      color="error"
+                      onClick={(event) => onDelete(row, event)}
+                      sx={{
+                        "&:hover": {
+                          backgroundColor: "rgba(255, 0, 0, 0.1)", 
+                          borderRadius: "50%", 
+                        },
+                      }}
+                    >
                       <DeleteIcon />
                     </IconButton>
                   </TableCell>

@@ -4,7 +4,6 @@ import RecentlyVisitedSection from "pages/User/components/RecentlyVisitedSection
 import TrendingDestinationSection from "pages/User/components/TrendingDestinationSection";
 import WhyChooseUsSection from "pages/User/components/WhyChooseUsSection";
 import Footer from "pages/User/components/Footer";
-import { setToken } from "utils/tokenUtils";
 
 const Home = () => {
   return (

@@ -91,13 +91,14 @@ const City = () => {
               sx={{
                 fontWeight: "bold",
                 marginBottom: "0.5rem",
+                paddingTop:"20px",
               }}
             >
               {city?.cityName}
             </Typography>
             <Typography
               variant="h6"
-              sx={{ color: theme.palette.secondary.main }}
+              sx={{ color: theme.palette.secondary.main,marginBottom: "2rem", }}
             >
               {city?.countryName}
             </Typography>
@@ -107,20 +108,36 @@ const City = () => {
         <Box
           sx={{
             width: "100%",
-            height: "400px",
+            height: "500px",
             position: "relative",
+            display:"flex",
+            justifyContent:"center",
+            alignItems:"center",
+            flexDirection:"column",
+            px:"20px"
           }}
         >
           <img
             src={city?.thumbnailUrl}
             alt={`${city?.cityName} Thumbnail`}
             style={{
-              width: "100%",
+              width: "85%",
               height: "100%",
               objectFit: "cover",
             }}
           />
+          <Typography
+              variant="body2"
+              sx={{
+                my: "2rem",
+                width: "85%",
+                fontWeight: "bold",
+              }}
+            >
+              {city?.description}
+            </Typography>
         </Box>
+
 
         <Container
           sx={{
@@ -180,6 +197,7 @@ const City = () => {
                   }}
                 >
                   <HotelCard
+                    hotelId={hotel.id}
                     hotelName={hotel.name}
                     starRating={hotel.starRating}
                     cityName={city?.cityName}

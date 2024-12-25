@@ -5,8 +5,6 @@ import {
   CardContent,
   Typography,
   Box,
-  Chip,
-  Grid,
   useTheme,
   Button,
   Stack,

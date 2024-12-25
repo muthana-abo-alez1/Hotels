@@ -22,7 +22,10 @@ interface AuthContextProps {
 export const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [userType, setUserType] = useState<UserType | null>(null);
+  const [userType, setUserType] = useState<UserType | null>(() => {
+    const token = getToken();
+    return token ? (getUserType(token) as UserType) : null;
+  });
   const navigate = useNavigate();
   const location = useLocation();
 

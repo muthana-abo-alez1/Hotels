@@ -25,7 +25,7 @@ const AdminPage = () => {
       <Box
         sx={{
           display: "flex",
-          height: `calc(100%)`,
+          height: `max`,
           boxSizing: "border-box",
           width: "100%",
         }}
@@ -33,18 +33,21 @@ const AdminPage = () => {
         <Sidebar open={sidebarOpen} onToggle={toggleSidebar} />
         <Container
           sx={{
-            paddingTop: "80px",
             maxWidth: "100%",
             flexGrow: 1,
             display: "flex",
             flexDirection: "column",
             position: "relative",
             boxSizing:"border-box",
-            "@media (max-width: 1200px)": {
-              marginLeft: "70px",
+            paddingTop: "80px",
+            maxHeight:"100%",
+            paddingLeft: "90px",
+            "@media (min-width: 600px)": {
+              paddingLeft: "90px",
             },
-            "@media (min-width: 1200px)": {
+             "@media (min-width: 1200px)": {
               maxWidth: "none",
+              paddingLeft: sidebarOpen?"260px":"90px",
             },
           }}
         >

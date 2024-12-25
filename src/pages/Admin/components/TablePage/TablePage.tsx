@@ -59,7 +59,8 @@ const TablePage = <T extends Data>({
     setPage(0);
   };
 
-  const handleDelete = (item: Data) => {
+  const handleDelete = (item: Data,event: React.MouseEvent) => {
+    event.stopPropagation();
     setItemToDelete(item);
     setConfirmDialogOpen(true);
   };

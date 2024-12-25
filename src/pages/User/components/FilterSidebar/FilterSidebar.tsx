@@ -1,5 +1,4 @@
 import React, { useState, ChangeEvent, useEffect } from "react";
-
 import {
   Box,
   Slider,

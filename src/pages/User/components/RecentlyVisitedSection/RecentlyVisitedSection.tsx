@@ -4,7 +4,7 @@ import { Typography, useTheme, Grid } from "@mui/material";
 import { HomeRecentlyVisitedHotels } from "interfaces/HomeRecentlyVisitedHotels";
 import { getHotelsRecentlyVisitedHome } from "apis/user/Home/HomeApis";
 import HotelCard from "../HotelCard";
-import { getToken, getUserId } from "utils/tokenUtils";
+import { getUserId } from "utils/tokenUtils";
 
 const RecentlyVisitedSection = () => {
   const theme = useTheme();

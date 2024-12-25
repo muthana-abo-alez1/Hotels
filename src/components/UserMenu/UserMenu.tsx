@@ -13,14 +13,14 @@ interface UserMenuProps {
     vertical: "top" | "bottom" | "center";
     horizontal: "left" | "right" | "center";
   };
-  color?: string; 
+  color?: string;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({
   children,
   anchorOrigin = { vertical: "top", horizontal: "right" },
   transformOrigin = { vertical: "top", horizontal: "left" },
-  color = "white", 
+  color = "white",
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { logout } = useAuth();
@@ -53,17 +53,17 @@ const UserMenu: React.FC<UserMenuProps> = ({
         onClick={handleOpen}
         onMouseEnter={(e) => {
           if (children) {
-            e.currentTarget.style.backgroundColor = color; 
+            e.currentTarget.style.backgroundColor = color;
           }
         }}
         onMouseLeave={(e) => {
           if (children) {
-            e.currentTarget.style.backgroundColor = "transparent"; 
+            e.currentTarget.style.backgroundColor = "transparent";
           }
         }}
       >
         <IconButton color="inherit">
-          <AccountCircleIcon sx={{ width: 40, height: 40, color: color }} /> 
+          <AccountCircleIcon sx={{ width: 40, height: 40, color: color }} />
         </IconButton>
         {children}
       </div>
@@ -80,36 +80,9 @@ const UserMenu: React.FC<UserMenuProps> = ({
           },
         }}
       >
-         <MenuItem
-          onClick={handleClose}
-          sx={{
-            "&:hover": {
-              backgroundColor: "#D4D4D4",
-            },
-          }}
-        >
-          Profile
-        </MenuItem>
-        <MenuItem
-          onClick={handleClose}
-          sx={{
-            "&:hover": {
-              backgroundColor: "#D4D4D4", 
-            },
-          }}
-        >
-          Settings
-        </MenuItem>
-        <MenuItem
-          onClick={handleLogout}
-          sx={{
-            "&:hover": {
-              backgroundColor: "#D4D4D4",
-            },
-          }}
-        >
-          Log Out
-        </MenuItem>
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>Settings</MenuItem>
+        <MenuItem onClick={handleLogout}>Log Out</MenuItem>
       </Menu>
     </Box>
   );

@@ -6,22 +6,21 @@ import { Room, RoomResponse } from "interfaces/Room";
 const API_BASE_URL = "/api";
 
 export const getRoomsFromSpecificHotel = async (
-    
-    hotelId: number,
-    checkInDate: string = "test",
-    checkOutDate: string = "test"
-  ): Promise<Room[]> => {
-    try {
-      const response = await axiosInstance.get<Room[]>(
-        `${API_BASE_URL}/hotels/${hotelId}/rooms`,
-        {
-          params: { checkInDate, checkOutDate }, 
-        }
-      );
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+  hotelId: number,
+  checkInDate: string = "test",
+  checkOutDate: string = "test"
+): Promise<Room[]> => {
+  try {
+    const response = await axiosInstance.get<Room[]>(
+      `${API_BASE_URL}/hotels/${hotelId}/rooms`,
+      {
+        params: { checkInDate, checkOutDate },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const getAvailableRoomsFromSpecificHotel = async (
@@ -33,7 +32,7 @@ export const getAvailableRoomsFromSpecificHotel = async (
     const response = await axiosInstance.get<Room[]>(
       `${API_BASE_URL}/hotels/${hotelId}/available-rooms`,
       {
-        params: { checkInDate, checkOutDate }, 
+        params: { checkInDate, checkOutDate },
       }
     );
     return response.data;
@@ -42,44 +41,48 @@ export const getAvailableRoomsFromSpecificHotel = async (
   }
 };
 
-
 export const postRoom = async (
-    hotelId: number,
-    roomNumber: number,
-    cost: number
-  ): Promise<RoomResponse> => {
-    try {
-      const response = await axiosInstance.post<RoomResponse>(
-        `${API_BASE_URL}/hotels/${hotelId}/rooms`,
-        {
-            roomNumber,  
-            cost,     
-          }
-      );
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+  hotelId: number,
+  roomNumber: number,
+  cost: number
+): Promise<RoomResponse> => {
+  try {
+    const response = await axiosInstance.post<RoomResponse>(
+      `${API_BASE_URL}/hotels/${hotelId}/rooms`,
+      {
+        roomNumber,
+        cost,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
-export const deleteRoom = async (hotelId: number,roomId:number): Promise<Room> => {
-    try {
-      const response = await axiosInstance.delete<Room>( `${API_BASE_URL}/hotels/${hotelId}/rooms/${roomId}`);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+export const deleteRoom = async (
+  hotelId: number,
+  roomId: number
+): Promise<Room> => {
+  try {
+    const response = await axiosInstance.delete<Room>(
+      `${API_BASE_URL}/hotels/${hotelId}/rooms/${roomId}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const postPhotoForRoom = async (
   roomId: number,
-  url: string,
+  url: string
 ): Promise<Photo> => {
   try {
     const response = await axiosInstance.post<Photo>(
       `${API_BASE_URL}/rooms/${roomId}/photos`,
       {
-        url    
+        url,
       }
     );
     return response.data;
@@ -91,15 +94,14 @@ export const postPhotoForRoom = async (
 export const postAmenityForRoom = async (
   roomId: number,
   name: string,
-  description:string,
-
+  description: string
 ): Promise<Amenities> => {
   try {
     const response = await axiosInstance.post<Amenities>(
       `${API_BASE_URL}/rooms/${roomId}/amenities`,
       {
         name,
-        description  
+        description,
       }
     );
     return response.data;
@@ -107,4 +109,3 @@ export const postAmenityForRoom = async (
     throw error;
   }
 };
-

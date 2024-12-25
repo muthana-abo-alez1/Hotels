@@ -10,7 +10,6 @@ export const ProtectedRoute: React.FC<{
 }> = ({ children, onlyAdmin = false }) => {
   const { userType, isAuthenticated  } = useAuth();
 
-
   if (!isAuthenticated()) {
     return <Login/>; 
   }

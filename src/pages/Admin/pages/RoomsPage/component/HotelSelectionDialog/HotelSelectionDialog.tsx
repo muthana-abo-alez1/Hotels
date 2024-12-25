@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getHotels } from "apis/admin/hotels/HotelsApis";
 import { setHotels } from "../../../../../../redux/reducers/hotelsSlice";
 import { Hotel } from "interfaces/Hotel";
+import { showInfoSnackbar } from "utils/snackbarUtils";
 
 interface HotelSelectionDialogProps {
   open: boolean;
@@ -54,7 +55,7 @@ const HotelSelectionDialog: React.FC<HotelSelectionDialogProps> = ({
     if (selectedHotel) {
       onClose(selectedHotel);
     } else {
-      alert("Please select a hotel to proceed.");
+      showInfoSnackbar("info","Please select a hotel to proceed.")
     }
   };
 

@@ -180,55 +180,57 @@ const HotelsForm: React.FC<HotelsFormProps> = ({
               error={touched.description && Boolean(errors.description)}
               helperText={touched.description && errors.description}
             />
-            {!isSelectedHotel && (
+            <Box sx={{display:"flex",alignItems:"center",justifyContent:"center", gap:1}}>
+              {!isSelectedHotel && (
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel>City</InputLabel>
+                  <Field
+                    name="cityId"
+                    as={Select}
+                    label="City"
+                    color="secondary"
+                    error={touched.cityId && Boolean(errors.cityId)}
+                  >
+                    {cities.map((city: any) => (
+                      <MenuItem key={city.id} value={city.id}>
+                        {city.name}
+                      </MenuItem>
+                    ))}
+                  </Field>
+                </FormControl>
+              )}
               <FormControl fullWidth variant="outlined">
-                <InputLabel>City</InputLabel>
+                <InputLabel>Hotel Type</InputLabel>
                 <Field
-                  name="cityId"
-                  as={Select}
-                  label="City"
+                  name="hotelType"
                   color="secondary"
-                  error={touched.cityId && Boolean(errors.cityId)}
+                  as={Select}
+                  label="Hotel Type"
+                  error={touched.hotelType && Boolean(errors.hotelType)}
                 >
-                  {cities.map((city: any) => (
-                    <MenuItem key={city.id} value={city.id}>
-                      {city.name}
+                  <MenuItem value={1}>Luxury</MenuItem>
+                  <MenuItem value={2}>Economy</MenuItem>
+                  <MenuItem value={3}>Budget</MenuItem>
+                </Field>
+              </FormControl>
+
+              <FormControl fullWidth variant="outlined">
+                <InputLabel>Star Rating</InputLabel>
+                <Field
+                  name="starRating"
+                  color="secondary"
+                  as={Select}
+                  label="Star Rating"
+                  error={touched.starRating && Boolean(errors.starRating)}
+                >
+                  {[1, 2, 3, 4, 5].map((rating) => (
+                    <MenuItem key={rating} value={rating}>
+                      {rating} Star
                     </MenuItem>
                   ))}
                 </Field>
               </FormControl>
-            )}
-            <FormControl fullWidth variant="outlined">
-              <InputLabel>Hotel Type</InputLabel>
-              <Field
-                name="hotelType"
-                color="secondary"
-                as={Select}
-                label="Hotel Type"
-                error={touched.hotelType && Boolean(errors.hotelType)}
-              >
-                <MenuItem value={1}>Luxury</MenuItem>
-                <MenuItem value={2}>Economy</MenuItem>
-                <MenuItem value={3}>Budget</MenuItem>
-              </Field>
-            </FormControl>
-
-            <FormControl fullWidth variant="outlined">
-              <InputLabel>Star Rating</InputLabel>
-              <Field
-                name="starRating"
-                color="secondary"
-                as={Select}
-                label="Star Rating"
-                error={touched.starRating && Boolean(errors.starRating)}
-              >
-                {[1, 2, 3, 4, 5].map((rating) => (
-                  <MenuItem key={rating} value={rating}>
-                    {rating} Star
-                  </MenuItem>
-                ))}
-              </Field>
-            </FormControl>
+            </Box>
 
             <Field
               name="latitude"
@@ -260,7 +262,7 @@ const HotelsForm: React.FC<HotelsFormProps> = ({
               color="primary"
               loading={loading}
               loadingPosition="center"
-              disabled={!dirty || isSubmitting} 
+              disabled={!dirty || isSubmitting}
             >
               {isSelectedHotel ? "Update Hotel" : "Add Hotel"}
             </LoadingButton>

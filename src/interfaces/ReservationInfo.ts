@@ -4,4 +4,3 @@ export interface ReservationInfo {
     checkIn: string;
     checkOut:string;
 }
-  

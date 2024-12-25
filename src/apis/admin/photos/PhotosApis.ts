@@ -1,16 +1,14 @@
-import { axiosInstance, handleError } from "apis/ApisConfig";
-import { showErrorSnackbar } from "utils/snackbarUtils";
+import { axiosInstance } from "apis/ApisConfig";
 
 interface UploadPhotoResponse {
-  url: string; 
+  url: string;
 }
 
 const API_BASE_URL = "/api";
 
-
 const uploadPhoto = async (file: File): Promise<string> => {
   const formData = new FormData();
-  formData.append('files', file);
+  formData.append("files", file);
 
   try {
     const response = await axiosInstance.post<UploadPhotoResponse>(
@@ -18,14 +16,14 @@ const uploadPhoto = async (file: File): Promise<string> => {
       formData,
       {
         headers: {
-          'Content-Type': 'multipart/form-data', 
+          "Content-Type": "multipart/form-data",
         },
       }
     );
 
     return response.data.url;
   } catch (error) {
-    throw error; 
+    throw error;
   }
 };
 
