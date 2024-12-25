@@ -3,6 +3,7 @@ import Header from "components/Header";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import { Box, Container, Typography } from "@mui/material";
+import React from 'react';
 
 const AdminPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
