@@ -3,6 +3,8 @@ import MuiAlert, { AlertColor } from "@mui/material/Alert";
 import { Typography } from "@mui/material";
 import { SnackbarContent } from "notistack";
 import styles from "./Alert.module.scss";
+import React from 'react';
+
 export type AlertOptions = {
   title: string;
   type: AlertColor;
