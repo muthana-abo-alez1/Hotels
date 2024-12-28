@@ -98,7 +98,7 @@ const HomeSection: React.FC = () => {
 
         <Box
           sx={{
-            marginTop: "20px",
+            marginTop: "40px",
             padding: { xs: "10px", sm: "10px", md: "20px", lg: "30px" },
             background:
               theme.palette.mode === "dark"
@@ -117,7 +117,6 @@ const HomeSection: React.FC = () => {
               marginBottom: "10px",
             }}
           >
-            FIND
           </Typography>
           <SearchBar onSearch={handleSearch} />
         </Box>
