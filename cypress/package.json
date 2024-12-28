@@ -1,0 +1,31 @@
+{
+  "name": "full-session",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "type": "commonjs",
+  "scripts": {
+    "cypress:open": "cypress open --browser chrome",
+    "cypress:run": "cypress run --browser chrome --headless"
+  },
+  "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "latest",
+    "@cypress/webpack-preprocessor": "latest",
+    "cypress-multi-reporters": "latest",
+    "mocha": "latest",
+    "mochawesome": "latest",
+    "mochawesome-merge": "latest",
+    "mochawesome-report-generator": "latest",
+    "ts-loader": "latest",
+    "typescript": "latest",
+    "webpack": "latest"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@testing-library/cypress": "^10.0.1",
+    "@types/cypress": "^1.1.3",
+    "@types/testing-library__cypress": "^5.0.13",
+    "cypress": "^13.6.2"
+  }
+}

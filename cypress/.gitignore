@@ -1,0 +1,6 @@
+# Ignoring node_modules
+node_modules
+# Ignoring reports folder
+reports
+# Ignoring screenshots folder
+screenshots
