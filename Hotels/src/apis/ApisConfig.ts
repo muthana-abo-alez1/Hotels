@@ -3,7 +3,6 @@ import { TIME_OUT } from "constants/Generals";
 import { ErrorTypes } from "enum/ErrorsTypes";
 import { showErrorSnackbar } from "utils/snackbarUtils";
 import { getToken } from "utils/tokenUtils";
-
 const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
   timeout: TIME_OUT,
@@ -28,8 +27,8 @@ axiosInstance.interceptors.response.use(
     return response;  
   },
   (error) => {
-    const handledError = handleError(error);  
-    showErrorSnackbar("Error", handledError.message);
+    const handledError = handleError(error); 
+    showErrorSnackbar("Error", handledError.message); 
     return Promise.reject(handledError);  
   }
 );

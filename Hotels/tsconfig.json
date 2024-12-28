@@ -22,6 +22,8 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "Hotels/src"
-, "Hotels/jest.config.js", "Hotels/src/setupTests.ts"  ]
+    "src",
+    "jest.config.js",
+    "src/setupTests.ts"
+  ]
 }

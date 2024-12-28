@@ -60,6 +60,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
     <Paper
       sx={{
         width: "100%",
+        minWidth: 300,
         height: "auto",
         marginTop: "20px",
         marginBottom: "20px",

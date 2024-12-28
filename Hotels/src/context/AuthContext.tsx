@@ -35,14 +35,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (location.pathname !== `/${ROUTES.LOGIN.path}`) {
         logout()
         showErrorSnackbar("Authentication Error", "Your session has expired.");
-        
       }
       return;
     }
-
-    const userTypeFromToken = getUserType(token);
-    setUserType(userTypeFromToken as UserType);
-
   }, [navigate,location.pathname]);
 
   const login = async (values: AuthenticationRequest): Promise<void> => {

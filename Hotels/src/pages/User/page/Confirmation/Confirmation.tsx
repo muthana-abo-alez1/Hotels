@@ -42,6 +42,7 @@ const Confirmation = () => {
         minHeight: "100vh",
         textAlign: "center",
         padding: 3,
+        overflow:"hidden"
       }}
     >
       <Typography
