@@ -5,3 +5,12 @@ export type RoomType =
   | "Economy"
   | "Family Suite"
   | "Executive Suite"
+
+  export const roomTypeValues: RoomType[] = [
+    "Standard",
+    "Suite",
+    "Deluxe",
+    "Economy",
+    "Family Suite",
+    "Executive Suite",
+  ];

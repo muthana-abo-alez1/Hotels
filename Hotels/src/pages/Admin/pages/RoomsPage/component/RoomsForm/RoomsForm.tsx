@@ -27,6 +27,7 @@ import { Hotel } from "interfaces/Hotel";
 import DropPhoto from "pages/Admin/components/DropPhoto";
 import { Amenities } from "interfaces/amenities";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { RoomType, roomTypeValues } from "types/RoomType";
 
 interface RoomsFormProps {
   onClose: () => void;
@@ -79,7 +80,7 @@ const RoomsForm: React.FC<RoomsFormProps> = ({
         const updatedRoom = {
           ...selectedRoom,
           ...roomData,
-          roomPhotoUrl: imageUrl,
+          roomPhotoUrl: imageUrl ? imageUrl : selectedRoom.roomPhotoUrl,
         };
         dispatch(updateRoomAction(updatedRoom));
         showSuccessSnackbar(
@@ -173,11 +174,11 @@ const RoomsForm: React.FC<RoomsFormProps> = ({
                   color="secondary"
                   error={touched.roomType && Boolean(errors.roomType)}
                 >
-                  <MenuItem value="Standard">Standard</MenuItem>
-                  <MenuItem value="Suite">Suite</MenuItem>
-                  <MenuItem value="Deluxe">Deluxe</MenuItem>
-                  <MenuItem value="Economy">Economy</MenuItem>
-                  <MenuItem value="Family Suite">Family Suite</MenuItem>
+                  {roomTypeValues.map((type) => (
+                    <MenuItem key={type} value={type}>
+                      {type}
+                    </MenuItem>
+                  ))}
                 </Field>
               </FormControl>
             </Box>

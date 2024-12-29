@@ -9,37 +9,10 @@ import {
   Typography,
 } from "@mui/material";
 import { SelectChangeEvent } from "@mui/material";
-
-const amenitiesList: string[] = [
-  "Free Wi-Fi",
-  "Fitness Center",
-  "wifi",
-  "Swimming Pool",
-  "Free Breakfast",
-  "TV",
-  "Business Center Access",
-  "Meeting Room",
-  "Complimentary Breakfast",
-  "Adjoining Rooms",
-  "Private Balcony",
-  "Kitchenette",
-  "Play Area",
-  "Budget-Friendly",
-  "Single Bed",
-  "King Size Bed",
-  "City View",
-  "Room Service",
-  "Spa Services",
-  "Fireplace",
-  "Jacuzzi",
-  "Mini Bar",
-  "Hiking Trails",
-  "Ocean View",
-  "Ocean View Balcony",
-];
+import amenityIcons from "types/AmenityType";
 
 interface AmenitySelectorProps {
-  selectedAmenities: string[]; 
+  selectedAmenities: string[];
   onAmenitiesChange: (amenities: string[]) => void;
   reset: boolean;
 }
@@ -73,7 +46,9 @@ export default function AmenitySelector({
     event: React.MouseEvent
   ) => {
     event.stopPropagation();
-    const updatedAmenities = amenities.filter((amenity) => amenity !== amenityToDelete);
+    const updatedAmenities = amenities.filter(
+      (amenity) => amenity !== amenityToDelete
+    );
     setAmenities(updatedAmenities);
     onAmenitiesChange(updatedAmenities);
   };
@@ -109,10 +84,10 @@ export default function AmenitySelector({
             </Box>
           )}
         >
-          {amenitiesList.map((amenity) => (
-            <MenuItem key={amenity} value={amenity}>
-              <Checkbox checked={amenities.includes(amenity)} />
-              {amenity}
+          {Object.entries(amenityIcons).map(([amenityName]) => (
+            <MenuItem key={amenityName} value={amenityName}>
+              <Checkbox checked={amenities.includes(amenityName)} />
+              {amenityName}
             </MenuItem>
           ))}
         </Select>

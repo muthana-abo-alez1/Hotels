@@ -12,12 +12,12 @@ const meta: Meta = {
   tags: ['autodocs'],
   argTypes: {
     selectedAmenities: {
-      control: 'object', // Use object control for arrays
+      control: 'object',
       description: 'Array of selected amenities',
-      defaultValue: ['Free Wi-Fi', 'Fitness Center'], // Default array of amenities
+      defaultValue: ['Free Wi-Fi', 'Fitness Center'], 
     },
     reset: {
-      control: 'boolean', // Boolean control for reset prop
+      control: 'boolean', 
     },
     onAmenitiesChange: { action: 'onAmenitiesChange' },
   },

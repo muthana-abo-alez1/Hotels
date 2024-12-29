@@ -1,15 +1,14 @@
+import { roomTypeValues } from "types/RoomType";
 import * as Yup from "yup";
 
 export const roomsValidationSchema = Yup.object().shape({
   roomNumber: Yup.string()
-    .required("Room number is required")
-    .matches(/^[0-9]+$/, "Room number must contain only numbers"),
-  roomType: Yup.string()
-    .required("Room type is required")
-    .oneOf(
-      ["Standard", "Suite", "Deluxe", "Economy", "Family Suite"],
-      "Invalid room type"
-    ),
+  .required("Room number is required")
+  .matches(/^[0-9]+$/, "Room number must contain only numbers"),
+roomType: Yup.string()
+  .required("Room type is required")
+  .oneOf(roomTypeValues, "Invalid room type"),
+  
   capacityOfAdults: Yup.number()
     .required("Capacity of adults is required")
     .min(1, "Capacity of adults must be at least 1")
