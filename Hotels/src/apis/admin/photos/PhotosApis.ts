@@ -9,8 +9,6 @@ const API_BASE_URL = "/api";
 const uploadPhoto = async (file: File): Promise<string> => {
   const formData = new FormData();
   formData.append("files", file);
-
-  try {
     const response = await axiosInstance.post<UploadPhotoResponse>(
       `${API_BASE_URL}/photos`,
       formData,
@@ -22,9 +20,6 @@ const uploadPhoto = async (file: File): Promise<string> => {
     );
 
     return response.data.url;
-  } catch (error) {
-    throw error;
-  }
 };
 
 export default uploadPhoto;

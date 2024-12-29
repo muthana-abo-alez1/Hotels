@@ -6,7 +6,6 @@ const API_BASE_URL = "/api/auth";
 export const loginUser = async (
   payload: AuthenticationRequest
 ): Promise<AuthenticationResponse> => {
-  try {
     const requestBody = {
       userName: payload.username,
       password: payload.password,
@@ -17,7 +16,4 @@ export const loginUser = async (
       requestBody
     );
     return response.data;
-  } catch (error) {
-    throw error;
-  }
 };

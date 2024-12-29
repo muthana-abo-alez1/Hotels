@@ -12,7 +12,6 @@ export const getHotels = async (
   pageSize: number = 10,
   pageNumber: number = 1
 ): Promise<Hotel[]> => {
-  try {
     const response = await axiosInstance.get<Hotel[]>(
       `${API_BASE_URL}/hotels`,
       {
@@ -25,48 +24,32 @@ export const getHotels = async (
       }
     );
     return response.data;
-  } catch (error) {
-    throw error;
-  }
 };
 
 export const getHotel = async (hotelId: number): Promise<specificHotel> => {
-  try {
     const response = await axiosInstance.get<specificHotel>(
       `${API_BASE_URL}/hotels/${hotelId}`
     );
     return response.data;
-  } catch (error) {
-    throw error;
-  }
 };
 
 export const getHotelReviews = async (hotelId: number): Promise<Review[]> => {
-  try {
     const response = await axiosInstance.get<Review[]>(
       `${API_BASE_URL}/hotels/${hotelId}/reviews`
     );
     return response.data;
-  } catch (error) {
-    throw error;
-  }
 };
 export const getHotelPhotos = async (hotelId: number): Promise<Photo[]> => {
-  try {
     const response = await axiosInstance.get<Photo[]>(
       `${API_BASE_URL}/hotels/${hotelId}/gallery`
     );
     return response.data;
-  } catch (error) {
-    throw error;
-  }
 };
 
 export const postHotel = async (
   cityId: string,
   payload: HotelPayload
 ): Promise<Hotel> => {
-  try {
     const requestBody = {
       name: payload.name,
       description: payload.description,
@@ -81,16 +64,12 @@ export const postHotel = async (
     );
 
     return response.data;
-  } catch (error) {
-    throw error;
-  }
 };
 
 export const updateHotel = async (
   hotelId: number,
   payload: HotelPayload
 ): Promise<Hotel> => {
-  try {
     const requestBody = {
       name: payload.name,
       description: payload.description,
@@ -105,34 +84,23 @@ export const updateHotel = async (
       requestBody
     );
     return response.data;
-  } catch (error) {
-    throw error;
-  }
 };
 
 export const deleteHotel = async (
   hotelId: number,
   cityId: string
 ): Promise<Hotel> => {
-  try {
     const response = await axiosInstance.delete<Hotel>(
       `${API_BASE_URL}/cities/${cityId}/hotels/${hotelId}`
     );
     return response.data;
-  } catch (error) {
-    throw error;
-  }
 };
 
 export const getHotelsFromSpecificCity = async (
   citylId: number
 ): Promise<Hotel[]> => {
-  try {
     const response = await axiosInstance.get<Hotel[]>(
       `${API_BASE_URL}/cities/${citylId}/hotels`
     );
     return response.data;
-  } catch (error) {
-    throw error;
-  }
 };

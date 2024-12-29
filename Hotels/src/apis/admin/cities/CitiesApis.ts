@@ -5,7 +5,6 @@ import { CityRequste } from "interfaces/CityRequset";
 const API_BASE_URL = "/api";
 
 export const postCity = async (payload: CityRequste): Promise<City> => {
-  try {
     const requestBody = {
       name: payload.name,
       description: payload.description,
@@ -16,9 +15,7 @@ export const postCity = async (payload: CityRequste): Promise<City> => {
       requestBody
     );
     return response.data;
-  } catch (error) {
-    throw error;
-  }
+
 };
 
 export const getCities = async (
@@ -26,8 +23,7 @@ export const getCities = async (
   searchQuery: string = "",
   pageSize: number = 10,
   pageNumber: number = 1
-): Promise<City[]> => {
-  try {
+): Promise<City[]> => { 
     const response = await axiosInstance.get<City[]>(`${API_BASE_URL}/cities`, {
       params: {
         name,
@@ -37,13 +33,9 @@ export const getCities = async (
       },
     });
     return response.data;
-  } catch (error) {
-    throw error;
-  }
 };
 
 export const getCity = async (id: number): Promise<City> => {
-  try {
     const response = await axiosInstance.get<City>(
       `${API_BASE_URL}/cities/${id}`,
       {
@@ -51,9 +43,6 @@ export const getCity = async (id: number): Promise<City> => {
       }
     );
     return response.data;
-  } catch (error) {
-    throw error;
-  }
 };
 
 export const deleteCity = async (id: number): Promise<City> => {
@@ -70,13 +59,9 @@ export const updateCity = async (
   id: number,
   cityData: { name: string; description: string }
 ): Promise<City> => {
-  try {
     const response = await axiosInstance.put<City>(
       `${API_BASE_URL}/cities/${id}`,
       cityData
     );
     return response.data;
-  } catch (error) {
-    throw error;
-  }
 };
