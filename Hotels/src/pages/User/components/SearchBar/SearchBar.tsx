@@ -5,6 +5,8 @@ import dayjs, { Dayjs } from "dayjs";
 import LocationPopover from "./Popover/LocationPopover";
 import TravelersPopover from "./Popover/TravelersPopover";
 import DateCalendarPopover from "./Popover/DateCalendarPopover";
+import { calculateDaysBetweenDates } from "utils/DateUtils";
+import { showInfoSnackbar } from "utils/snackbarUtils";
 
 interface SearchBarProps {
   onSearch: (data: {
@@ -66,6 +68,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   };
 
   const handleSearch = () => {
+    
     const searchData = {
       location,
       checkInDate: checkInDate ? checkInDate.format("YYYY-MM-DD") : "",
@@ -76,6 +79,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
         rooms: travelers.rooms,
       },
     };
+    if(calculateDaysBetweenDates(searchData.checkInDate,searchData.checkOutDate)<0){
+      showInfoSnackbar("Invalid dates", "Check-out date must be later than check-in date.");
+      return
+    }
     onSearch(searchData);
   };
 
