@@ -29,7 +29,7 @@ Make sure you have the following installed:
    - Create a `.env` file in the root directory.
    - Add the following configuration:
      ```
-     REACT_APP_BASE_URL='https://app-hotel-reservation-webapi-uae-dev-001.azurewebsites.net'
+     REACT_APP_BASE_URL='https://hotel.foothilltech.net'
      ```
 
 ## Running the Application
