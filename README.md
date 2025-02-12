@@ -1,46 +1,129 @@
-# Getting Started with Create React App
+# Hotel Booking Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-featured front-end web application for booking accommodations, designed to provide users with a seamless experience for searching, booking, and managing their accommodations. The platform includes both user and admin interfaces, allowing users to search for available accommodations, view details, and manage bookings, while admins can manage accommodation listings and view user bookings.
+## About the Project
+This platform offers a streamlined experience for users to find and book accommodations, while providing admins with robust tools to manage hotels, rooms, and cities. Key features include advanced filters, secure booking processes, and a responsive user interface.
 
-## Available Scripts
+## Installation and Setup
 
-In the project directory, you can run:
+### Prerequisites
+Make sure you have the following installed:
+- Node.js (>= 18.16.0)
+- Yarn
+- Git
 
-### `npm start`
+### Steps
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. **Clone the Repository**:
+   ```bash
+   https://github.com/muthana-abo-alez1/Hotels.git
+   cd Hotels
+   ```
+   
+2. **Switch to the develop Branch**:
+   ```bash
+   git checkout develop
+   ```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+3. **Navigate to Hotels Directory**:
+   ```bash
+   cd Hotels
+   ```    
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. **Install Dependencies**:
+   ```bash
+   yarn install
+   ```
 
-### `npm run build`
+5. **Set Environment Variables**:
+   - Create a `.env` file in the root directory.
+   - Add the following configuration:
+     ```
+     REACT_APP_BASE_URL='https://hotel.foothilltech.net'
+     ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Running the Application
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Development Mode
+To start the development server:
+```bash
+yarn dev
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The application will be available at:
+```
+http://localhost:3000/login
+```
 
-### `npm run eject`
+## Login Credentials
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Admin Login
+- **Username**: `admin`
+- **Password**: `admin`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### User Login
+- **Username**: `user`
+- **Password**: `user`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Features
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### User Features
+- **Search & Browse**: Explore hotels with advanced filters and sorting.
+- **Hotel Details**: View images, amenities, and reviews.
+- **Booking**: Book rooms with secure checkout and confirmation.
 
-## Learn More
+### Admin Features
+- **CRUD Operations**: Manage cities, hotels, and rooms.
+- **Dashboard Navigation**: Access entities quickly via a functional sidebar.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Tech Stack
+- **Frontend**: React, Material-UI
+- **Routing**: React Router
+- **State Management**: Redux, Context API
+- **Form Handling**: Formik
+- **Type Checking**: TypeScript
+- **Testing**: Cypress (End-to-End Testing) , Jest
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Testing with Cypress
+
+### Install Cypress
+Install Cypress as a dev dependency:
+```bash
+cd cypress 
+yarn install
+```
+
+### Run Cypress Tests
+1. Open the Cypress Test Runner:
+   ```bash
+   yarn cypress:open
+   ```
+2. Run tests in headless mode:
+   ```bash
+   yarn cypress:run
+   ```
+## Testing with Jest
+
+Jest is used for unit and integration testing of components and utilities.
+
+### Run Jest Tests
+1. Run all Jest tests:
+   ```bash
+   yarn test
+   ```
+
+   ## Storybook
+
+Storybook is used for building and testing UI components in isolation.
+
+### Run Storybook
+1. Start the Storybook server:
+   ```bash
+   yarn storybook
+   ```
+
+2. Access Storybook at:
+   ```
+   http://localhost:6006
+   ```
