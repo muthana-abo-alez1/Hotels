@@ -1,13 +1,13 @@
-import { Box, Typography, Button, useTheme } from "@mui/material";
+import { Box, Typography, Button, useTheme, TextField } from "@mui/material";
 import React from "react";
-import { Formik, Form } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import InputMask from "react-input-mask";
 import { validationPaymentInfoSchema } from "./validation";
-import CustomTextField from "pages/User/components/CustomTextField";
 import { PaymentInfoData } from "interfaces/PaymentInfoData";
 
 interface PaymentInfoProps {
   totalPrice: number;
-  onSubmitPayment: (paymentData: PaymentInfoData) => void; 
+  onSubmitPayment: (paymentData: PaymentInfoData) => void;
 }
 
 const PaymentInfo: React.FC<PaymentInfoProps> = ({ totalPrice, onSubmitPayment }) => {
@@ -16,9 +16,9 @@ const PaymentInfo: React.FC<PaymentInfoProps> = ({ totalPrice, onSubmitPayment }
   return (
     <Box
       sx={{
-        p: { sx: 1, xs: 2, md: 4 },
+        p: { xs: 2, md: 4 },
         maxWidth: 600,
-        margin: { sx: "auto 10px", xs: "auto 20px", md: "auto" },
+        margin: { xs: "auto 10px", md: "auto" },
         boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
         borderRadius: "10px",
         border: `1px solid ${theme.palette.divider}`,
@@ -45,16 +45,71 @@ const PaymentInfo: React.FC<PaymentInfoProps> = ({ totalPrice, onSubmitPayment }
         }}
         validationSchema={validationPaymentInfoSchema}
         onSubmit={(values) => {
-          onSubmitPayment(values);  
+          onSubmitPayment(values);
         }}
       >
-        {() => (
+        {({ handleChange, handleBlur, values, errors, touched }) => (
           <Form>
-            <CustomTextField label="Cardholder Name" name="cardholderName" placeholder="Ex: MutAbuAleez" />
-            <CustomTextField label="Card Number" name="cardNumber" placeholder="0000 - 0000 - 0000 - 0000" />
+            <Field
+              as={TextField}
+              label="Cardholder Name"
+              name="cardholderName"
+              placeholder="Ex: MutAbuAleez"
+              fullWidth
+              margin="normal"
+              error={touched.cardholderName && Boolean(errors.cardholderName)}
+              helperText={touched.cardholderName && errors.cardholderName}
+            />
+
+            <InputMask
+              mask="9999-9999-9999-9999"
+              value={values.cardNumber}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
+              {() => (
+                <Field
+                  as={TextField}
+                  label="Card Number"
+                  name="cardNumber"
+                  placeholder="0000-0000-0000-0000"
+                  fullWidth
+                  margin="normal"
+                  error={touched.cardNumber && Boolean(errors.cardNumber)}
+                  helperText={touched.cardNumber && errors.cardNumber}
+                />
+              )}
+            </InputMask>
+
             <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
-              <CustomTextField label="Expiry Date" name="expiryDate" placeholder="MM/YY" />
-              <CustomTextField label="Security Code" name="securityCode" placeholder="3 digits" />
+              <InputMask
+                mask="99/99"
+                value={values.expiryDate}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              >
+                {() => (
+                  <Field
+                    as={TextField}
+                    label="Expiry Date"
+                    name="expiryDate"
+                    placeholder="MM/YY"
+                    fullWidth
+                    error={touched.expiryDate && Boolean(errors.expiryDate)}
+                    helperText={touched.expiryDate && errors.expiryDate}
+                  />
+                )}
+              </InputMask>
+
+              <Field
+                as={TextField}
+                label="Security Code"
+                name="securityCode"
+                placeholder="3 digits"
+                fullWidth
+                error={touched.securityCode && Boolean(errors.securityCode)}
+                helperText={touched.securityCode && errors.securityCode}
+              />
             </Box>
 
             <Button

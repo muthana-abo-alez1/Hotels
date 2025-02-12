@@ -8,7 +8,7 @@ import {
   setToken ,
 } from "utils/tokenUtils";
 import { ROUTES } from "routes";
-import { loginUser } from "apis/login/authApi";
+import { loginUser } from "apis/login/AuthApi";
 import { UserType } from "types/UserType";
 import { showErrorSnackbar, showSuccessSnackbar } from "utils/snackbarUtils";
 
