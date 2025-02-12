@@ -1,16 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "components/Header";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import { Box, Container, Typography } from "@mui/material";
 import React from 'react';
 
 const AdminPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
+
+  useEffect(() => {
+    if (location.pathname === "/admin"||location.pathname === "/admin/") {
+      navigate("cities");
+    }
+  }, [navigate, location.pathname]);
 
   return (
     <Box
