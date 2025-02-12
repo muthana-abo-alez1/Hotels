@@ -74,9 +74,6 @@ const SearchCard: React.FC<SearchCardProps> = ({ hotel,checkInDate,checkOutDate 
         overflow: "hidden",
         gap: 1,
         cursor:"pointer",
-        "&:hover": {
-          transform: "scale(1.009)",
-        },
       }}
       onClick={handleClick} 
     >
@@ -86,6 +83,7 @@ const SearchCard: React.FC<SearchCardProps> = ({ hotel,checkInDate,checkOutDate 
           width: loading ? { xs: "100%", sm: "260px", md: "300px" } : "0px",
           height: loading ? { xs: "285px", sm: "100%" } : "0px",
           display: loading ? "block" : "none",
+          
         }}
       />
 

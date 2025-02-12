@@ -18,6 +18,7 @@ import SearchCard from "pages/User/components/SearchCard/SearchCard";
 import { searchHotels } from "apis/user/Home/HomeApis";
 import dayjs from "dayjs";
 import SortSidebar from "./component/SortSidebar";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const SearchPage = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -49,7 +50,7 @@ const SearchPage = () => {
     numberOfRooms: parseInt(searchParams.get("rooms") || "2"),
     starRate: parseInt(searchParams.get("starRate") || "5"),
     sort: searchParams.get("sort") || "",
-  }; 
+  };
 
   const [checkInDate, setCheckInDate] = useState<string>(
     initialParams.checkInDate || dayjs().format("YYYY-MM-DD")
@@ -57,13 +58,13 @@ const SearchPage = () => {
   const [checkOutDate, setCheckOutDate] = useState<string>(
     initialParams.checkOutDate || dayjs().add(1, "day").format("YYYY-MM-DD")
   );
-
-  const fetchHotels = async (searchParams: any) => {
+  const [page, setPage] = useState(1);
+  const fetchHotels = async (searchParams: any, page: number) => {
     try {
       setLoading(true);
-      const data = await searchHotels(searchParams);
-      setAllHotels(data);
-      setHotels(data);
+      const data = await searchHotels({ ...searchParams, page });
+      setAllHotels((prev) => [...prev, ...data]); 
+      setHotels((prev) => [...prev, ...data]); 
     } catch (err: any) {
       setError(err.message || "Failed to fetch hotels");
     } finally {
@@ -72,8 +73,8 @@ const SearchPage = () => {
   };
 
   useEffect(() => {
-    fetchHotels(initialParams);
-  }, []);
+    fetchHotels(initialParams, page);
+  }, [page]);
 
   const handleFilter = (
     priceRange: [number, number],
@@ -135,7 +136,7 @@ const SearchPage = () => {
       sort: initialParams.sort,
     };
 
-    fetchHotels(updatedParams);
+    fetchHotels(updatedParams, page);
   };
 
   return (
@@ -247,14 +248,41 @@ const SearchPage = () => {
           ) : hotels.length === 0 ? (
             <p>No hotels found</p>
           ) : (
-            hotels.map((hotel) => (
-              <SearchCard
-                key={hotel.hotelId}
-                hotel={hotel}
-                checkInDate={checkInDate}
-                checkOutDate={checkOutDate}
-              />
-            ))
+            <InfiniteScroll
+              dataLength={hotels.length}
+              next={() => setPage(page + 1)}
+              hasMore={hotels.length < allHotels.length}
+              loader={
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "50vh",
+                  }}
+                >
+                  <CircularProgress />
+                </div>
+              }
+              endMessage={<p>No more hotels to load</p>}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "16px",
+                }}
+              >
+                {hotels.map((hotel) => (
+                  <SearchCard
+                    key={hotel.hotelId}
+                    hotel={hotel}
+                    checkInDate={checkInDate}
+                    checkOutDate={checkOutDate}
+                  />
+                ))}
+              </div>
+            </InfiniteScroll>
           )}
         </Container>
       </Container>
@@ -276,7 +304,7 @@ const SearchPage = () => {
           sx={{
             color: "white",
             position: "absolute",
-            [sidebarPosition === "left" ? "right" : "left"]: "20px", 
+            [sidebarPosition === "left" ? "right" : "left"]: "20px",
             top: "15px",
             zIndex: 1000,
             bgcolor: theme.palette.primary.main,
@@ -291,7 +319,12 @@ const SearchPage = () => {
         {sidebarPosition === "left" ? (
           <FilterSidebar handleFilter={handleFilter} initialFilters={filters} />
         ) : (
-          <SortSidebar hotels={hotels} setHotels={setHotels} setLoading={setLoading} toggleSidebar={toggleSidebar}/>
+          <SortSidebar
+            hotels={hotels}
+            setHotels={setHotels}
+            setLoading={setLoading}
+            toggleSidebar={toggleSidebar}
+          />
         )}
       </Drawer>
     </div>
