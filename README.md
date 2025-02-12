@@ -19,13 +19,24 @@ Make sure you have the following installed:
    https://github.com/muthana-abo-alez1/Hotels.git
    cd Hotels
    ```
+   
+2. **Switch to the develop Branch**:
+   ```bash
+   git checkout develop
+   ```
 
-2. **Install Dependencies**:
+3. **Navigate to Hotels Directory**:
+   ```bash
+   cd Hotels
+   ```    
+
+
+4. **Install Dependencies**:
    ```bash
    yarn install
    ```
 
-3. **Set Environment Variables**:
+5. **Set Environment Variables**:
    - Create a `.env` file in the root directory.
    - Add the following configuration:
      ```
