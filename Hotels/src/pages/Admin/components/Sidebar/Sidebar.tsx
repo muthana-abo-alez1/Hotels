@@ -111,7 +111,7 @@ const Sidebar: React.FC<{ open: boolean; onToggle: () => void }> = ({
       </List>
 
       <ListItem disablePadding  sx={{ marginTop: "auto" }}>
-        <UserMenu >
+        <UserMenu hoverColor={theme.palette.primary.main}>
         {open && (
             <ListItemText sx={{ paddingLeft: "15px" }} primary="Admin User" />
           )}

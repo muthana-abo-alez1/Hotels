@@ -14,6 +14,8 @@ interface UserMenuProps {
     horizontal: "left" | "right" | "center";
   };
   color?: string;
+  backgroundColor?: string;
+  hoverColor?: string; 
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({
@@ -21,9 +23,12 @@ const UserMenu: React.FC<UserMenuProps> = ({
   anchorOrigin = { vertical: "top", horizontal: "right" },
   transformOrigin = { vertical: "top", horizontal: "left" },
   color = "white",
+  backgroundColor = "transparent",
+  hoverColor = "transparent", 
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { logout } = useAuth();
+  const [hover, setHover] = useState(false); 
 
   const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -48,19 +53,12 @@ const UserMenu: React.FC<UserMenuProps> = ({
           alignItems: "center",
           justifyContent: "center",
           padding: "5px",
-          transition: "background-color 0.3s ease",
+          transition: "background-color",
+          backgroundColor: hover ? hoverColor : backgroundColor, 
         }}
         onClick={handleOpen}
-        onMouseEnter={(e) => {
-          if (children) {
-            e.currentTarget.style.backgroundColor = color;
-          }
-        }}
-        onMouseLeave={(e) => {
-          if (children) {
-            e.currentTarget.style.backgroundColor = "transparent";
-          }
-        }}
+        onMouseEnter={() => setHover(true)} 
+        onMouseLeave={() => setHover(false)}
       >
         <IconButton color="inherit">
           <AccountCircleIcon sx={{ width: 40, height: 40, color: color }} />
