@@ -1,0 +1,17 @@
+name: Trigger Cypress Repo
+
+on:
+  push:
+    branches:
+      - main   
+
+jobs:
+  trigger-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Cypress Workflow
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}   
+          repository: muthana-abo-alez1/FullSession-Automation  
+          event-type: run-cypress-tests                
