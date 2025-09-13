@@ -12,6 +12,6 @@ jobs:
       - name: Trigger Cypress Workflow
         uses: peter-evans/repository-dispatch@v3
         with:
-          token: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}   
+          token: ${{ secrets.TRIGGER_CYPRESS_PAT }}   
           repository: muthana-abo-alez1/FullSession-Automation  
           event-type: run-cypress-tests                
