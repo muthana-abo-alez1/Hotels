@@ -3,7 +3,10 @@ name: Trigger Cypress Repo
 on:
   push:
     branches:
-      - main   
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   trigger-tests:
@@ -12,6 +15,7 @@ jobs:
       - name: Trigger Cypress Workflow
         uses: peter-evans/repository-dispatch@v3
         with:
-          token: ${{ secrets.TRIGGER_CYPRESS_PAT }}   
-          repository: muthana-abo-alez1/FullSession-Automation  
-          event-type: run-cypress-tests                
+          token: ${{ secrets.TRIGGER_CYPRESS_PAT }}
+          repository: muthana-abo-alez1/FullSession-Automation
+          event-type: run-cypress-tests
+        
